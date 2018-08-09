@@ -1,0 +1,36 @@
+.hotitems {
+    display: -webkit-flex;
+    /* Safari */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    background: white;
+    height: 280px;
+}
+
+.item {
+    width: 50%;
+    height: 250px;
+}
+
+.item .image {
+    width: 100%;
+    height: 150px;
+}
+
+.item .description {
+    height: 78px;
+    font-weight: 600;
+}
+
+.item .price {
+    width: 100%;
+    margin: 5px;
+    font-size: 15px;
+    color: red;
+    font-weight: 600;
+    line-height: 26px;
+}

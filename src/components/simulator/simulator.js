@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import hardware from '../../image/silver_hardware_medium.png';
 import './simulator.css';
+import Category from '../minicomponents/category/category';
+import HotItems from '../minicomponents/hotitems/hotitems';
 export default class Simulator extends Component{
     render(){
         var divStyle = {
@@ -18,22 +20,8 @@ export default class Simulator extends Component{
                 width: 274,
                 marginLeft: 21
             }} className="container">
-            
-                <div style={{
-                    background: 'blue',
-                    height: 100,
-                    width: 100
-                }}></div>
-                                <div style={{
-                    background: 'blue',
-                    height: 100,
-                    width: 100
-                }}></div>
-                                <div style={{
-                    background: 'blue',
-                    height: 100,
-                    width: 100
-                }}></div>
+                <Category/>
+                <HotItems/>
             </div>
         </div>);
     }
