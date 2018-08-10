@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './hotitems.css';
-import {hotitems} from '../../../resources/hotitems';
+import hotitems from '../../../resources/hotitems';
 export default class HotItems extends Component{
     render(){
         const cat = hotitems.map((value, index, array) => {

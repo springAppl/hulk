@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './category.css';
-import {categories} from '../../../resources/categories';
+import categories from '../../../resources/categories';
 export default class Category extends Component{
 
     render(){

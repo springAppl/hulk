@@ -1,4 +1,4 @@
-export const categories = [
+const categories = [
     {
       id: 1,
       image: "https://kuboot-1256353119.cos.ap-beijing.myqcloud.com/image/milk/milk.jpg",
@@ -20,3 +20,4 @@ export const categories = [
       name: "衣服"
     }
   ];
+export default categories;

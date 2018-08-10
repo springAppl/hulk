@@ -1,4 +1,4 @@
-export const hotitems = [
+const hotitems = [
     {
       id: 1,
       name: '伊利儿童经典原味牛奶片160g*3盒装奶酪乳制品零食干吃奶片奶贝',
@@ -72,3 +72,4 @@ export const hotitems = [
       price: 50000
     }
   ];
+  export default hotitems;
