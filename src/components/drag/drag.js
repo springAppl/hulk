@@ -6,6 +6,8 @@ export default class Drag extends Component {
   state = initialData;
   dragEnd = result => {
     const {destination, source, draggableId} = result;
+
+    console.log(result);
     
     if(!destination) {
       return;
