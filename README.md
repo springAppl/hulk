@@ -1,5 +1,5 @@
-小程序管理后台前端项目
-采用yarn启动，因为采用npm会碰到各种包的问题，所以采用yarn
+小程序管理后台前端项目<br/>
+采用yarn启动，因为采用npm会碰到各种包的问题，所以采用yarn<br/>
 nginx配置:
 1在本地/etc/hosts文件中添加
 ```
@@ -29,9 +29,9 @@ http {
 
 
 
-启动过程:
-1 yarn
-2 yarn start
+启动过程:<br/>
+1 yarn<br/>
+2 yarn start<br/>
 
 
 访问 http://admin.mini.com
