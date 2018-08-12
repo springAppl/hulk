@@ -1,5 +1,7 @@
 小程序管理后台前端项目<br/>
-采用yarn启动，因为采用npm会碰到各种包的问题，所以采用yarn<br/>
+在启动前端项目之前，需要先启动后端项目[kuboot](https://github.com/springAppl/kuboot)<br/>
+对应的小程序[ann](https://github.com/springAppl/anna)<br/>
+
 nginx配置:
 1在本地/etc/hosts文件中添加
 ```
@@ -27,7 +29,7 @@ http {
 }
 ```
 
-
+采用yarn启动，因为采用npm会碰到各种包的问题，所以采用yarn<br/>
 
 启动过程:<br/>
 1 yarn<br/>
