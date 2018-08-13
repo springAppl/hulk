@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import Simulator from './../simulator/simulator';
-import Drag from '../drag/drag';
 import {Button} from 'antd';
+import styled from 'styled-components';
+const Content = styled.div`
+float: left;
+width: 100%;
+`;
+
 export default class MiniProgram extends Component{
     constructor(props) {
         super(props);
@@ -9,6 +14,7 @@ export default class MiniProgram extends Component{
             components: []
         };
     }
+    
 
     componentWillMount() {
         fetch('/api/index')
@@ -35,9 +41,11 @@ export default class MiniProgram extends Component{
     }
 
     render(){
+        
         return (<div>
-            <Simulator components={this.changeComponents}/>
-            <Drag/>
+            <Content>
+                <Simulator components={this.changeComponents}/>
+            </Content>
             <Button type='primary' onClick={this.submit}>提交</Button>
         </div>);
     }
