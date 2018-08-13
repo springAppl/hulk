@@ -3,32 +3,55 @@ import hardware from "../../image/silver_hardware_medium.png";
 import "./simulator.css";
 import Category from "../minicomponents/category/category";
 import HotItems from "../minicomponents/hotitems/hotitems";
-import Drag from '../drag/drag';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 const Components = styled.div`
 width: 100%;
 `;
-const Item = styled.div`
-
-`;
-const items = [
-  {
-    index: 0,
-    typeId: 'category'
-  },
-  {
-    index: 1,
-    typeId: 'hotitems'
-  },
-  {
-    index: 2,
-    typeId: 'category'
-  }
-]
+const Item = styled.div``;
 export default class Simulator extends React.Component {
-  onDragEnd = () => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      components: []
+    }
+    console.log(this.props.components());
+  }
+
+  componentWillMount() {
+    fetch('/api/index')
+    .then(response => response.json())
+    .then(data => {
+      this.setState({
+        components: data
+      });
+    });
+}
+
+
+
+  onDragEnd = result => {
     // the only one that is required
+    const {destination, source} = result;
+    if (!destination) {
+      return;
+    }
+    if(source.draggableId === destination.draggableId &&
+      source.index === destination.index
+    ) {
+      return;
+    }
+    // 链表和数组的出对入队
+   var newItems = Array.from(this.state.components);
+   var sourceItem = newItems[source.index];
+   newItems.splice(source.index, 1);
+   console.log(newItems);
+   newItems.splice(destination.index, 0, sourceItem);
+   console.log(newItems);
+   this.setState({
+     components: newItems
+   });
+   this.props.components(newItems);
   };
   render() {
     var divStyle = {
@@ -65,16 +88,15 @@ export default class Simulator extends React.Component {
                     backgroundColor: provided.isDragging ? 'green' : 'lightblue',
                   }}
                 >
-                  {items.map((value, index) => (
+                  {this.state.components.map((value, index) => (
                     <Draggable draggableId={index} index={index} key={index}>
                       {
                         (provided) => {
-                          //console.log(value);
                           var com = null;
-                          if (value.typeId == 'category') {
-                            com = <Category/>
-                          } else if(value.typeId == 'hotitems'){
-                            com = <HotItems/>
+                          if (value.typeId === 'category') {
+                            com = <Category categories={value.content.categories}/>
+                          } else if(value.typeId === 'hotitems'){
+                            com = <HotItems items={value.content.items}/>
                           }
                         return  (
                             <Item
@@ -93,7 +115,6 @@ export default class Simulator extends React.Component {
               )}
             </Droppable>
           </DragDropContext>
-          <Drag/>
         </div>
       </div>
     );

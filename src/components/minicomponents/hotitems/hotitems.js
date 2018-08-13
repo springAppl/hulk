@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import './hotitems.css';
-import hotitems from '../../../resources/hotitems';
 export default class HotItems extends Component{
     render(){
-        const cat = hotitems.map((value, index, array) => {
+        const cat = this.props.items.map((value, index, array) => {
             return (<div className="item" key={value.id}>
                 <div className='image'>
                     <img src={value.image} className="image" alt={value.name}/>
