@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './category.css';
-export default class Category extends Component{
-
+export default class Category extends React.Component{
     render(){
         const cat = this.props.categories != null ? this.props.categories.map((value, index, array) => {
             return (<div key={value.id} className="categoryItem">
@@ -15,6 +14,9 @@ export default class Category extends Component{
         }):null;
         return (<div className='category'>
             {cat}
+            {this.props.isEdit === true ? (<div className="categoryItem">
+                编辑模式
+            </div>):(<div/>)}
         </div>);
     }
 }

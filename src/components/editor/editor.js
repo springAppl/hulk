@@ -36,7 +36,7 @@ export default class Editor extends React.Component {
                             (provided) => {
                                 var com = null;
                                 if (this.props.typeId === 'category') {
-                                com = <Category categories={this.props.content.categories}/>
+                                com = <Category categories={this.props.content != null ? this.props.content.categories : null} isEdit={true}/>
                                 } else if(this.props.typeId === 'hotitems'){
                                 com = <HotItems items={this.props.content.items}/>
                                 }

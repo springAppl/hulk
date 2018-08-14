@@ -17,9 +17,7 @@ export default class MiniProgram extends Component{
         this.state = {
             components: [],
             typeId: 'category',
-            content: {
-                categories: categories
-            }
+            content: null
         };
     }
     componentWillMount() {
