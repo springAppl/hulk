@@ -2,14 +2,9 @@ import React, {Component} from 'react';
 import Simulator from './../simulator/simulator';
 import {Button} from 'antd';
 import styled from 'styled-components';
-<<<<<<< HEAD
-
 import Tools from './../tools/tools'
-
-=======
 import Editor from '../editor/editor';
 import categories from '../../resources/categories';
->>>>>>> master
 const Content = styled.div`
 float: left;
 width: 100%;
