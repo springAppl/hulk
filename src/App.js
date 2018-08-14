@@ -40,7 +40,7 @@ class App extends Component {
             >
               <Menu.Item key="1">
                 <Icon type="user" />
-                <span className="nav-text">小程序12</span>
+                <span className="nav-text">小程序</span>
                 <Link to="/miniprogram" />
               </Menu.Item>
               <Menu.Item key="2">
