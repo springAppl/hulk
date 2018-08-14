@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Category from '../minicomponents/category/category';
 const Box = styled.div`
@@ -13,15 +13,9 @@ const Box = styled.div`
     align-items: center;
 `;
 export default class Editor extends React.Component {
-    constructor(props){
-        super(props);
-        this.setState({
-            content: props.content
-        });
-    }
     render() {
         return (<Box>
-            <Category categories={this.content}/>
+            <Category categories={this.props.content}/>
         </Box>);
     }
 }

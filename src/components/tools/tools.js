@@ -6,31 +6,26 @@ import { FaBeer } from 'react-icons/fa';
 import logo from './../../logo.svg'
 
 const Lists = [
-  {icon: logo, title: '轮播组件'},
-  {icon: logo, title: '轮播组件'},
-  {icon: logo, title: '轮播组件'},
-  {icon: logo, title: '轮播组件'},
-  {icon: logo, title: '轮播组件'},
-  {icon: logo, title: '轮播组件'},
-  {icon: logo, title: '轮播组件'},
+  {typeId: 1, icon: logo, title: '轮播组件'},
+  {typeId: 2, icon: logo, title: '轮播组件'},
+  {typeId: 3, icon: logo, title: '轮播组件'},
+  {typeId: 4, icon: logo, title: '轮播组件'},
+  {typeId: 5, icon: logo, title: '轮播组件'},
+  {typeId: 6, icon: logo, title: '轮播组件'},
+  {typeId: 7, icon: logo, title: '轮播组件'},
 ]
 
 const icon = (ico) => {
   return <ico/>
 }
 export default class A extends React.Component{
-
-
-
-
   render(){
-
     return(
       <Container>
 
         <List>
           {Lists.map(item => {
-            return <Item>
+            return <Item key={item.typeId }>
                 <Left src={item.icon}/>
                 <Right>
                  {item.title}
