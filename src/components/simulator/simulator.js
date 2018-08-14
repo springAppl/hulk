@@ -3,7 +3,7 @@ import hardware from "../../image/silver_hardware_medium.png";
 import "./simulator.css";
 import Category from "../minicomponents/category/category";
 import HotItems from "../minicomponents/hotitems/hotitems";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 const Components = styled.div`
 width: 100%;
@@ -11,27 +11,6 @@ width: 100%;
 const Item = styled.div``;
 export default class Simulator extends React.Component {
 
-  onDragEnd = result => {
-    // the only one that is required
-    const {destination, source} = result;
-    if (!destination) {
-      return;
-    }
-    if(source.draggableId === destination.draggableId &&
-      source.index === destination.index
-    ) {
-      return;
-    }
-    // 链表和数组的出对入队
-   var newItems = Array.from(this.props.components);
-   var sourceItem = newItems[source.index];
-   newItems.splice(source.index, 1);
-   newItems.splice(destination.index, 0, sourceItem);
-   this.setState({
-     components: newItems
-   });
-   this.props.changeComponents(newItems);
-  };
   render() {
     var divStyle = {
       backgroundImage: "url(" + hardware + ")",
@@ -55,10 +34,8 @@ export default class Simulator extends React.Component {
           }}
           className="container"
         >
-          <DragDropContext
-                  onDragEnd={this.onDragEnd}
-          >
-            <Droppable droppableId="miniprogram" direction="vertical">
+
+            <Droppable droppableId="simulator" direction="vertical">
               {(provided) => (
                 <Components
                   innerRef={provided.innerRef}
@@ -93,7 +70,6 @@ export default class Simulator extends React.Component {
                 </Components>
               )}
             </Droppable>
-          </DragDropContext>
         </div>
       </div>
     );
