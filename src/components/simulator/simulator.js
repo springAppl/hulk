@@ -10,24 +10,6 @@ width: 100%;
 `;
 const Item = styled.div``;
 export default class Simulator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      components: []
-    }
-  }
-
-  componentWillMount() {
-    fetch('/api/index')
-    .then(response => response.json())
-    .then(data => {
-      this.setState({
-        components: data
-      });
-    });
-}
-
-
 
   onDragEnd = result => {
     // the only one that is required
@@ -41,16 +23,14 @@ export default class Simulator extends React.Component {
       return;
     }
     // 链表和数组的出对入队
-   var newItems = Array.from(this.state.components);
+   var newItems = Array.from(this.props.components);
    var sourceItem = newItems[source.index];
    newItems.splice(source.index, 1);
-   console.log(newItems);
    newItems.splice(destination.index, 0, sourceItem);
-   console.log(newItems);
    this.setState({
      components: newItems
    });
-   this.props.components(newItems);
+   this.props.changeComponents(newItems);
   };
   render() {
     var divStyle = {
@@ -87,7 +67,7 @@ export default class Simulator extends React.Component {
                     backgroundColor: provided.isDragging ? 'green' : 'lightblue',
                   }}
                 >
-                  {this.state.components.map((value, index) => (
+                  {this.props.components.map((value, index) => (
                     <Draggable draggableId={index} index={index} key={index}>
                       {
                         (provided) => {

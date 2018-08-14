@@ -15,31 +15,28 @@ export default class MiniProgram extends Component{
         super(props);
         this.state = {
             components: [],
-            editorContent: null
+            editorContent: categories,
+            typeId: null
         };
     }
-
-
     componentWillMount() {
         fetch('/api/index')
         .then(response =>  response.json())
         .then(data => {
-          this.changeComponents(data);
-        });
-        this.setState({
-            editorContent: categories
+          this.setState({
+              components: data
+          });
         });
     }
 
-    changeComponents = components => {
-        if (!components) {
+    changeComponents =  data => {
+        if (!data) {
             return this.state.components;
         }
         this.setState({
-            ...this.state,
-            components: components
+            components: data
         });
-        return components;
+        return data;
     }
     submit = e => {
         fetch('/api/index', {
@@ -52,7 +49,7 @@ export default class MiniProgram extends Component{
 
         return (<div>
             <Content style={{flex: 1, flexDirection: 'row',}}>
-                <Simulator components={this.changeComponents}/>
+                <Simulator  components={this.state.components} changeComponents={this.changeComponents}/>
                 <Editor content={this.state.editorContent}/>
                 <Tools/>
             </Content>
