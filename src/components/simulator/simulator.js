@@ -80,7 +80,7 @@ export default class Simulator extends React.Component {
           >
             <Droppable droppableId="miniprogram" direction="vertical">
               {(provided) => (
-                <Components 
+                <Components
                   innerRef={provided.innerRef}
                   {...provided.droppableProps}
                   style={{

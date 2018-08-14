@@ -2,8 +2,14 @@ import React, {Component} from 'react';
 import Simulator from './../simulator/simulator';
 import {Button} from 'antd';
 import styled from 'styled-components';
+<<<<<<< HEAD
+
+import Tools from './../tools/tools'
+
+=======
 import Editor from '../editor/editor';
 import categories from '../../resources/categories';
+>>>>>>> master
 const Content = styled.div`
 float: left;
 width: 100%;
@@ -17,11 +23,11 @@ export default class MiniProgram extends Component{
             editorContent: null
         };
     }
-    
+
 
     componentWillMount() {
         fetch('/api/index')
-        .then(response => response.json())
+        .then(response =>  response.json())
         .then(data => {
           this.changeComponents(data);
         });
@@ -48,11 +54,12 @@ export default class MiniProgram extends Component{
     }
 
     render(){
-        
+
         return (<div>
-            <Content>
+            <Content style={{flex: 1, flexDirection: 'row',}}>
                 <Simulator components={this.changeComponents}/>
                 <Editor content={this.state.editorContent}/>
+                <Tools/>
             </Content>
             <Button type='primary' onClick={this.submit}>提交</Button>
         </div>);
