@@ -15,7 +15,6 @@ export default class Simulator extends React.Component {
     this.state = {
       components: []
     }
-    console.log(this.props.components());
   }
 
   componentWillMount() {
