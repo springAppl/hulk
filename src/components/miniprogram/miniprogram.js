@@ -7,7 +7,6 @@ import {Button, Input} from 'antd';
 import styled from 'styled-components';
 import Tools from './../tools/tools'
 import Editor from '../editor/editor';
-import categories from '../../resources/categories';
 import { DragDropContext } from 'react-beautiful-dnd';
 const Content = styled.div`
 float: left;
@@ -20,9 +19,7 @@ class MiniProgram extends Component{
         this.state = {
             components: [],
             typeId: 'category',
-            content: {
-                categories: categories
-            }
+            content: null
         };
     }
     componentWillMount() {
