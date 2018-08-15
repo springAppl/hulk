@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import { observer } from "mobx-react"
 import DevTools from 'mobx-react-devtools';
-
 import store from './../../store/store'
-
 import Simulator from './../simulator/simulator';
-import {Button} from 'antd';
+import {Button, Input} from 'antd';
 import styled from 'styled-components';
 import Tools from './../tools/tools'
 import Editor from '../editor/editor';
