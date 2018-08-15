@@ -3,7 +3,7 @@ import { observer } from "mobx-react"
 import DevTools from 'mobx-react-devtools';
 import store from './../../store/store'
 import Simulator from './../simulator/simulator';
-import {Button, Input} from 'antd';
+import {Button} from 'antd';
 import styled from 'styled-components';
 import Tools from './../tools/tools'
 import Editor from '../editor/editor';
@@ -18,7 +18,7 @@ class MiniProgram extends Component{
         super(props);
         this.state = {
             components: [],
-            typeId: 'category',
+            typeId: null,
             content: null
         };
     }
@@ -35,6 +35,12 @@ class MiniProgram extends Component{
             content: data
         });
         return data;
+    }
+    changeTypeID = typeId => {
+        this.setState({
+            typeId: typeId,
+            content: null
+        });
     }
     submit = e => {
         store.putChange(store.components)
@@ -76,13 +82,20 @@ class MiniProgram extends Component{
         if(source.droppableId === 'simulator') {
             sourceItem = store.components[source.index];
             newItems.splice(source.index, 1);
+            store.refreshData(newItems)
         }
         // 链表和数组的出对入队
         if(destination.droppableId === 'simulator') {
-
+            newItems.splice(destination.index, 0, sourceItem);
+            store.refreshData(newItems)
         }
-       newItems.splice(destination.index, 0, sourceItem);
-       store.refreshData(newItems)
+        if (destination.droppableId === 'editor') {
+            this.setState({
+                typeId: sourceItem.typeId,
+                content: sourceItem.content
+            });
+        }
+
       }
 
     render(){
@@ -93,9 +106,9 @@ class MiniProgram extends Component{
                     onDragEnd={this.onDragEnd}
                 >
                     <Simulator  components={store.components}/>
-                    <Editor typeId={this.state.typeId} content={this.state.content} changeContent={this.changeContent}/>
+                    <Editor typeId={this.state.typeId} content={this.state.content} changeContent={this.changeContent} />
                 </DragDropContext>
-                <Tools/>
+                <Tools changeTypeID={this.changeTypeID}/>
             </Content>
             <Button type='primary' onClick={this.submit}>提交</Button>
           <DevTools />

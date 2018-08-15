@@ -6,7 +6,7 @@ export default class Category extends React.Component{
         loading: false,
       };
     changeValue = (e, index, value) => {
-        var newItems = this.props.categories;
+        var newItems = this.props.categories == null ? [] : this.props.categories;
         newItems.splice(index, 1, {
             id: index,
             name: e.target.value,
@@ -49,7 +49,7 @@ export default class Category extends React.Component{
               loading: false,
             }));
             // TODO 
-            var newItems = this.props.categories;
+            var newItems = this.props.categories == null ? [] : this.props.categories;
             newItems.push({
                 id: newItems.length,
                 image: info.file.response
@@ -77,11 +77,13 @@ export default class Category extends React.Component{
                 </div>
                 <div className='span'>
 
-                    <span>                    {
-                        this.props.isEdit ? (
-                            <Input onChange={(e) => this.changeValue(e, index, value)} />
-                        ):(value.name)
-                    }</span>
+                    <span>                    
+                        {
+                            this.props.isEdit ? (
+                                <Input value={value.name}  onChange={(e) => this.changeValue(e, index, value)} />
+                            ):(value.name)
+                        }
+                    </span>
                 </div>
             </div>);
         }):null;
@@ -102,7 +104,7 @@ export default class Category extends React.Component{
                 </Upload>
                 </div>
                 <div className='span'>
-                    <span><Input /></span>
+                    <span></span>
                 </div>
             </div>):(<div/>)}
         </div>);

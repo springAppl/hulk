@@ -22,7 +22,7 @@ export default class Editor extends React.Component {
     render() {
         return (
         <Box>
-            <Droppable droppableId="editor" direction="vertical">
+            <Droppable droppableId="editor" direction="vertical" style={{minHeight: 300, width: 400, backgroundColor: 'red', float: 'left', overflow: 'auto'}}>
                 {(provided) => (
                     <Components
                         innerRef={provided.innerRef}
@@ -31,14 +31,14 @@ export default class Editor extends React.Component {
                             backgroundColor: provided.isDragging ? 'green' : 'lightblue',
                         }}
                     >
-                        <Draggable draggableId={this.props.typeId} index={0} key={this.props.typeId}>
+                        <Draggable draggableId={'editor'+this.props.typeId} index={0} key={this.props.typeId}>
                             {
                             (provided) => {
                                 var com = null;
                                 if (this.props.typeId === 'category') {
                                 com = <Category categories={this.props.content != null ? this.props.content.categories : null} isEdit={true} {...this.props}/>
                                 } else if(this.props.typeId === 'hotitems'){
-                                com = <HotItems items={this.props.content.items} {...this.props}/>
+                                com = <HotItems items={this.props.content != null ? this.props.content.items : null} {...this.props} isEdit={true} {...this.props}/>
                                 }
                             return  (
                                 <Item
@@ -51,6 +51,21 @@ export default class Editor extends React.Component {
                             )}
                             }
                         </Draggable>
+                        <Draggable draggableId={'editor'} index={1} isDragDisabled={false}>
+                    {
+                            (provided) => {
+                            var height = this.props.typeId == null ? 398 : 0;
+                            return  (
+                                <Item
+                                innerRef={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                >
+                            <div style={{height: 0, width: 400, backgroundColor: 'green', marginBottom: height}}></div>
+                                </Item>
+                            )}
+                            }
+                    </Draggable>
                         {provided.placeholder}
                     </Components>
                 )}

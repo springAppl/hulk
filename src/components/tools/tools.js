@@ -1,18 +1,13 @@
 import React from 'react'
 import styled, { css} from 'styled-components'
-
+import {Button} from 'antd';
 import { IconContext } from "react-icons";
 import { FaBeer } from 'react-icons/fa';
 import logo from './../../logo.svg'
 
 const Lists = [
-  {typeId: 1, icon: logo, title: '轮播组件'},
-  {typeId: 2, icon: logo, title: '轮播组件'},
-  {typeId: 3, icon: logo, title: '轮播组件'},
-  {typeId: 4, icon: logo, title: '轮播组件'},
-  {typeId: 5, icon: logo, title: '轮播组件'},
-  {typeId: 6, icon: logo, title: '轮播组件'},
-  {typeId: 7, icon: logo, title: '轮播组件'},
+  {id: 1, typeId: 'category', icon: logo, title: '类目组件'},
+  {id: 2, typeId: 'hotitems', icon: logo, title: '商品组件'},
 ]
 
 const icon = (ico) => {
@@ -25,12 +20,19 @@ export default class A extends React.Component{
 
         <List>
           {Lists.map(item => {
-            return <Item key={item.typeId }>
-                <Left src={item.icon}/>
-                <Right>
-                 {item.title}
-                </Right>
-              </Item>
+            return (
+              <a key={item.typeId} onClick={() => {
+                console.log(item);
+                  this.props.changeTypeID(item.typeId)
+                }}>
+                <Item >
+                    <Left src={item.icon}/>
+                    <Right>
+                    {item.title}
+                    </Right>
+                </Item>
+              </a>
+              )
           })}
         </List>
 
