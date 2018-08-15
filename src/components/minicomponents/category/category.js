@@ -1,6 +1,5 @@
 import React from 'react';
 import './category.css';
-import addImg from '../../../image/add.png';
 import { Input, Upload, Icon, message } from 'antd';
 export default class Category extends React.Component{
     state = {
