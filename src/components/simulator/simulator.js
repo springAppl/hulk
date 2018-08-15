@@ -8,6 +8,7 @@ import styled from 'styled-components';
 const Components = styled.div`
 width: 100%;
 `;
+
 const Item = styled.div``;
 export default class Simulator extends React.Component {
 
