@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import { observer } from "mobx-react"
 import DevTools from 'mobx-react-devtools';
-
 import store from './../../store/store'
-
 import Simulator from './../simulator/simulator';
-import {Button} from 'antd';
+import {Button, Input} from 'antd';
 import styled from 'styled-components';
 import Tools from './../tools/tools'
 import Editor from '../editor/editor';
-import categories from '../../resources/categories';
 import { DragDropContext } from 'react-beautiful-dnd';
 const Content = styled.div`
 float: left;
@@ -22,9 +19,7 @@ class MiniProgram extends Component{
         this.state = {
             components: [],
             typeId: 'category',
-            content: {
-                categories: categories
-            },
+            content: null
         };
     }
     componentWillMount() {
@@ -44,8 +39,15 @@ class MiniProgram extends Component{
     submit = e => {
         store.putChange(store.components)
     }
+    fetchID() {
+            return fetch('/api/index/id', {
+                method: 'POST'
+            }).then(response => {
+                return response.json();
+            }).then(data => data);
+    }
 
-    onDragEnd = result => {
+    onDragEnd = async result => {
         // the only one that is required
         console.log(result);
         const {destination, source} = result;
@@ -59,7 +61,9 @@ class MiniProgram extends Component{
         }
         var sourceItem = null;
         if(source.droppableId === 'editor') {
+            const id = await this.fetchID();
             sourceItem = {
+                id: id,
                 typeId: this.state.typeId,
                 content: this.state.content
             };
@@ -79,7 +83,7 @@ class MiniProgram extends Component{
         }
        newItems.splice(destination.index, 0, sourceItem);
        store.refreshData(newItems)
-      };
+      }
 
     render(){
 
@@ -94,7 +98,6 @@ class MiniProgram extends Component{
                 <Tools/>
             </Content>
             <Button type='primary' onClick={this.submit}>提交</Button>
-
           <DevTools />
         </div>);
     }
