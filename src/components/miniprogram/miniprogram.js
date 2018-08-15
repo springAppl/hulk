@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+import { observer } from "mobx-react"
+import DevTools from 'mobx-react-devtools';
+
+import store from './../../store/store'
+
 import Simulator from './../simulator/simulator';
 import {Button} from 'antd';
 import styled from 'styled-components';
@@ -11,33 +16,19 @@ float: left;
 width: 100%;
 `;
 
-export default class MiniProgram extends Component{
+class MiniProgram extends Component{
     constructor(props) {
         super(props);
         this.state = {
             components: [],
             typeId: 'category',
-            content: null
+            content: {
+                categories: categories
+            }
         };
     }
     componentWillMount() {
-        fetch('/api/index')
-        .then(response =>  response.json())
-        .then(data => {
-          this.setState({
-              components: data
-          });
-        });
-    }
-
-    changeComponents =  data => {
-        if (!data) {
-            return this.state.components;
-        }
-        this.setState({
-            components: data
-        });
-        return data;
+        store.load()
     }
 
 
@@ -51,13 +42,17 @@ export default class MiniProgram extends Component{
         return data;
     }
     submit = e => {
-        fetch('/api/index', {
-            body: JSON.stringify(this.changeComponents()),
-            method: 'PUT'
-        })
+        store.putChange(store.components)
+    }
+    fetchID() {
+            return fetch('/api/index/id', {
+                method: 'POST'
+            }).then(response => {
+                return response.json();
+            }).then(data => data);
     }
 
-    onDragEnd = result => {
+    onDragEnd = async result => {
         // the only one that is required
         console.log(result);
         const {destination, source} = result;
@@ -71,7 +66,9 @@ export default class MiniProgram extends Component{
         }
         var sourceItem = null;
         if(source.droppableId === 'editor') {
+            const id = await this.fetchID();
             sourceItem = {
+                id: id,
                 typeId: this.state.typeId,
                 content: this.state.content
             };
@@ -80,20 +77,18 @@ export default class MiniProgram extends Component{
                 content: null
             });
         }
-        var newItems = Array.from(this.state.components);
+        var newItems = Array.from(store.components);
         if(source.droppableId === 'simulator') {
-            sourceItem = this.state.components[source.index];
+            sourceItem = store.components[source.index];
             newItems.splice(source.index, 1);
         }
-        // 链表和数组的出对入队 
+        // 链表和数组的出对入队
         if(destination.droppableId === 'simulator') {
-               
-        }      
+
+        }
        newItems.splice(destination.index, 0, sourceItem);
-       this.setState({
-         components: newItems
-       });
-      };
+       store.refreshData(newItems)
+      }
 
     render(){
 
@@ -102,12 +97,17 @@ export default class MiniProgram extends Component{
                 <DragDropContext
                     onDragEnd={this.onDragEnd}
                 >
-                    <Simulator  components={this.state.components} changeComponents={this.changeComponents}/>
+                    <Simulator  components={store.components}/>
                     <Editor typeId={this.state.typeId} content={this.state.content} changeContent={this.changeContent}/>
                 </DragDropContext>
                 <Tools/>
             </Content>
             <Button type='primary' onClick={this.submit}>提交</Button>
+          <DevTools />
         </div>);
     }
 }
+
+MiniProgram = observer(MiniProgram)
+
+export default MiniProgram
