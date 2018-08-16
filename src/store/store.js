@@ -2,6 +2,7 @@ import { observable, computed, action, decorate } from "mobx"
 
 class Store {
    components = []
+   edit = {}
 
    load(){
     fetch('/api/index')
@@ -22,13 +23,19 @@ class Store {
         method: 'PUT'
     })
   }
+
+  setEdit(data){
+    this.edit = data
+  }
 }
 
 decorate(Store, {
   components: observable,
+  edit: observable,
   load: action,
   refreshData: action,
   putChange: action,
+  setEdit: action
 })
 
 export default new Store()

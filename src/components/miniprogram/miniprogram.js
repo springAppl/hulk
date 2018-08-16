@@ -6,41 +6,15 @@ import Simulator from './../simulator/simulator';
 import {Button} from 'antd';
 import styled from 'styled-components';
 import Tools from './../tools/tools'
-import Editor from '../editor/editor';
 import { DragDropContext } from 'react-beautiful-dnd';
+import backImage from '../../image/transprant.png';
 const Content = styled.div`
 float: left;
 width: 100%;
 `;
-
 class MiniProgram extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            components: [],
-            typeId: null,
-            content: null
-        };
-    }
     componentWillMount() {
         store.load()
-    }
-
-
-    changeContent = data => {
-        if (!data) {
-            return this.state.content;
-        }
-        this.setState({
-            content: data
-        });
-        return data;
-    }
-    changeTypeID = typeId => {
-        this.setState({
-            typeId: typeId,
-            content: null
-        });
     }
     submit = e => {
         store.putChange(store.components)
@@ -55,7 +29,6 @@ class MiniProgram extends Component{
 
     onDragEnd = async result => {
         // the only one that is required
-        console.log(result);
         const {destination, source} = result;
         if (!destination) {
           return;
@@ -66,17 +39,16 @@ class MiniProgram extends Component{
           return;
         }
         var sourceItem = null;
-        if(source.droppableId === 'editor') {
+        if(source.droppableId === 'tool') {
             const id = await this.fetchID();
             sourceItem = {
                 id: id,
-                typeId: this.state.typeId,
-                content: this.state.content
-            };
-            this.setState({
-                typeId: null,
+                typeId: result.draggableId,
                 content: null
-            });
+            };
+            var edit = store.edit;
+            edit[id] = true;
+            store.setEdit(edit);
         }
         var newItems = Array.from(store.components);
         if(source.droppableId === 'simulator') {
@@ -89,29 +61,26 @@ class MiniProgram extends Component{
             newItems.splice(destination.index, 0, sourceItem);
             store.refreshData(newItems)
         }
-        if (destination.droppableId === 'editor') {
-            this.setState({
-                typeId: sourceItem.typeId,
-                content: sourceItem.content
-            });
-        }
-
       }
 
     render(){
-
         return (<div>
-            <Content style={{flex: 1, flexDirection: 'row',}}>
+            <Content style={{
+
+            }}>
                 <DragDropContext
                     onDragEnd={this.onDragEnd}
                 >
-                    <Simulator  components={store.components}/>
-                    <Editor typeId={this.state.typeId} content={this.state.content} changeContent={this.changeContent} />
+                <div style={{width: '60%', float: 'left', display: 'flex', display: '-webkit-flex', flexDirection: 'row', justifyContent:'center', backgroundImage:`url(${backImage})`}}>
+                    <Simulator  components={store.components} />
+                </div>
+                <div style={{width: '30%', float: 'left', display: 'flex', display: '-webkit-flex', flexDirection: 'row', justifyContent:'center'}}>
+                    <Tools changeTypeID={this.changeTypeID}/>
+                </div>
                 </DragDropContext>
-                <Tools changeTypeID={this.changeTypeID}/>
             </Content>
             <Button type='primary' onClick={this.submit}>提交</Button>
-          <DevTools />
+          {/* <DevTools /> */}
         </div>);
     }
 }

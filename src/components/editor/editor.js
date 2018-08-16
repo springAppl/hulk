@@ -27,28 +27,29 @@ export default class Editor extends React.Component {
                     <Components
                         innerRef={provided.innerRef}
                         {...provided.droppableProps}
-                        style={{
-                            backgroundColor: provided.isDragging ? 'green' : 'lightblue',
-                        }}
+                        // style={{
+                        //     backgroundColor: provided.isDragging ? 'green' : 'lightblue',
+                        // }}
                     >
                         <Draggable draggableId={'editor'+this.props.typeId} index={0} key={this.props.typeId}>
                             {
-                            (provided) => {
-                                var com = null;
-                                if (this.props.typeId === 'category') {
-                                com = <Category categories={this.props.content != null ? this.props.content.categories : null} isEdit={true} {...this.props}/>
-                                } else if(this.props.typeId === 'hotitems'){
-                                com = <HotItems items={this.props.content != null ? this.props.content.items : null} {...this.props} isEdit={true} {...this.props}/>
+                                (provided) => {
+                                    var com = null;
+                                    if (this.props.typeId === 'category') {
+                                    com = <Category categories={this.props.content != null ? this.props.content.categories : null} isEdit={true} {...this.props}/>
+                                    } else if(this.props.typeId === 'hotitems'){
+                                    com = <HotItems items={this.props.content != null ? this.props.content.items : null} {...this.props} isEdit={true} {...this.props}/>
+                                    }
+                                    return  (
+                                        <Item
+                                        innerRef={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                        >
+                                        {com}
+                                        </Item>
+                                    )
                                 }
-                            return  (
-                                <Item
-                                innerRef={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                                >
-                                {com}
-                                </Item>
-                            )}
                             }
                         </Draggable>
                         <Draggable draggableId={'editor'} index={1} isDragDisabled={false}>

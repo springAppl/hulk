@@ -1,19 +1,17 @@
 import React from 'react';
 import './category.css';
 import { Input, Upload, Icon, message } from 'antd';
+import store from '../../../store/store'
 export default class Category extends React.Component{
     state = {
         loading: false,
-      };
+    };
     changeValue = (e, index, value) => {
-        var newItems = this.props.categories == null ? [] : this.props.categories;
+        var newItems = this.props.content == null ? [] : this.props.categories;
         newItems.splice(index, 1, {
             id: index,
             name: e.target.value,
             image: value.image
-        });
-        this.props.changeContent({
-            categories: newItems
         });
     }
     getBase64 = (img, callback) => {
@@ -43,20 +41,23 @@ export default class Category extends React.Component{
           }
           if (info.file.status === 'done') {
             // Get this url from response in real world.
-            console.log(info.file);
             this.getBase64(info.file.originFileObj, imageUrl => this.setState({
               imageUrl: null,
               loading: false,
             }));
             // TODO 
-            var newItems = this.props.categories == null ? [] : this.props.categories;
-            newItems.push({
-                id: newItems.length,
+            var newCategories = this.props.content == null ? [] : this.props.content.categories;
+            newCategories.push({
+                id: newCategories.length,
                 image: info.file.response
             });
-            this.props.changeContent({
-                categories: newItems
-            });
+            var components = Array.from(store.components);
+            var item = components[this.props.index];
+            item.content = {
+                categories: newCategories
+            }
+            components.splice(this.props.index, 1, item);
+            store.refreshData(components);
           }
         }
 
@@ -70,7 +71,7 @@ export default class Category extends React.Component{
               <div className="ant-upload-text">Upload</div>
             </div>
           );
-        const cat = this.props.categories != null ? this.props.categories.map((value, index, array) => {
+        const cat = this.props.content != null ? this.props.content.categories.map((value, index, array) => {
             return (<div key={value.id} className="categoryItem">
                 <div>
                     <img src={value.image} className="image" alt={value.name}/>

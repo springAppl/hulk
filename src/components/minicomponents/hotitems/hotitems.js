@@ -90,7 +90,7 @@ export default class HotItems extends Component{
 
         return (<div className='hotitems'>
             {
-                this.props.items != null ? this.props.items.map((value, index, array) => {
+                this.props.content != null ? this.props.content.items.map((value, index, array) => {
                     return (<div className="item" key={value.id}>
                         <div className='image'>
                             <img src={value.image} className="image" alt={value.name}/>

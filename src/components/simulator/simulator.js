@@ -5,10 +5,10 @@ import Category from "../minicomponents/category/category";
 import HotItems from "../minicomponents/hotitems/hotitems";
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
+import store from '../../store/store';
 const Components = styled.div`
 width: 100%;
 `;
-
 const Item = styled.div``;
 export default class Simulator extends React.Component {
 
@@ -17,7 +17,8 @@ export default class Simulator extends React.Component {
       backgroundImage: "url(" + hardware + ")",
       height: 628,
       width: 319,
-      float: 'left'
+      minWidth: 319,
+      margin: 0
     };
     return (
       <div style={divStyle}>
@@ -37,39 +38,44 @@ export default class Simulator extends React.Component {
         >
 
             <Droppable droppableId="simulator" direction="vertical">
-              {(provided) => (
-                <Components
+              {(provided) => {
+                const edit = new Array(store.edit)[0];
+                
+                return <Components
                   innerRef={provided.innerRef}
                   {...provided.droppableProps}
                   style={{
                     backgroundColor: provided.isDragging ? 'green' : 'lightblue',
                   }}
                 >
-                  {this.props.components.map((value, index) => (
-                    <Draggable draggableId={index} index={index} key={index}>
-                      {
-                        (provided) => {
-                          var com = null;
-                          if (value.typeId === 'category') {
-                            com = <Category categories={value.content.categories}/>
-                          } else if(value.typeId === 'hotitems'){
-                            com = <HotItems items={value.content.items}/>
-                          }
-                        return  (
-                            <Item
-                            innerRef={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            >
-                            {com}
-                            </Item>
-                        )}
-                      }
-                    </Draggable>
-                  ))}
+                  {
+                    this.props.components.map((value, index) => (
+                          <Draggable draggableId={index} index={index} key={index}>
+                            {
+                              (provided) => {
+                                var com = null;
+                                if (value.typeId === 'category') {
+                                  com = <Category {...value} index={index}  isEdit={edit[value.id]}/>
+                                } else if(value.typeId === 'hotitems'){
+                                  com = <HotItems {...value} index={index} />
+                                }
+                              return  (
+                                  <Item
+                                  innerRef={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  {...provided.dragHandleProps}
+                                  >
+                                  {com}
+                                  </Item>
+                              )}
+                            }
+                          </Draggable>
+                      )
+                    )
+                  }
                   {provided.placeholder}
                 </Components>
-              )}
+              }}
             </Droppable>
         </div>
       </div>

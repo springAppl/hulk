@@ -1,10 +1,12 @@
 import React from 'react'
 import styled, { css} from 'styled-components'
-import {Button} from 'antd';
 import { IconContext } from "react-icons";
 import { FaBeer } from 'react-icons/fa';
 import logo from './../../logo.svg'
-
+import {Droppable, Draggable } from 'react-beautiful-dnd';
+const Components = styled.div`
+width: 400px
+`;
 const Lists = [
   {id: 1, typeId: 'category', icon: logo, title: '类目组件'},
   {id: 2, typeId: 'hotitems', icon: logo, title: '商品组件'},
@@ -16,36 +18,50 @@ const icon = (ico) => {
 export default class A extends React.Component{
   render(){
     return(
-      <Container>
-
-        <List>
-          {Lists.map(item => {
-            return (
-              <a key={item.typeId} onClick={() => {
-                console.log(item);
-                  this.props.changeTypeID(item.typeId)
-                }}>
-                <Item >
-                    <Left src={item.icon}/>
-                    <Right>
-                    {item.title}
-                    </Right>
-                </Item>
-              </a>
-              )
-          })}
-        </List>
-
-      </Container>
+      <Droppable droppableId='tool' direction="vertical" >
+          {(provided) => (
+            
+                <Container
+                  innerRef={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  <List>
+                  {Lists.map((item, index) => {
+                      return (
+                        <Draggable draggableId={item.typeId} index={index} key={item.id}>
+                          {
+                            (provided) => (
+                              <Item 
+                                innerRef={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                              >
+                              <Left src={item.icon}/>
+                              <Right>
+                              {item.title}
+                              </Right>
+                              </Item>
+                            )
+                          }
+                        </Draggable>
+                      )
+                    }
+                  )
+                }
+                  </List>
+                  {provided.placeholder}
+                </Container>
+          )}
+      </Droppable>
     )
   }
 }
 
 const Container = styled.div`
-  width: 100%;
+  width: 300px;
   height: 628px;
-  max-width: 300px;
-  float: right;
+  min-width: 300px;
+  float: left;
   background-color: #001529;
 `
 const List = styled.div`

@@ -1,6 +1,6 @@
 小程序管理后台前端项目<br/>
 在启动前端项目之前，需要先启动后端项目[kuboot](https://github.com/springAppl/kuboot)<br/>
-对应的小程序[ann](https://github.com/springAppl/anna)<br/>
+对应的小程序[anna](https://github.com/springAppl/anna)<br/>
 
 nginx配置:
 1在本地/etc/hosts文件中添加

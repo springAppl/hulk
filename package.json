@@ -27,7 +27,7 @@
   },
   "proxy": {
     "/api/": {
-    "target": "http://kuboot.cn"
+    "target": "http://119.29.105.18"
     }
   }
 }

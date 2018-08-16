@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Layout>
+        <Layout >
           <Sider
             breakpoint="lg"
             collapsedWidth="0"
