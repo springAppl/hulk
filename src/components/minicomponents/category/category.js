@@ -2,6 +2,8 @@ import React from 'react';
 import './category.css';
 import { Input, Upload, Icon, message } from 'antd';
 import store from '../../../store/store';
+import {observer} from 'mobx-react';
+@observer
 export default class Category extends React.Component{
     state = {
         loading: false,

@@ -1,8 +1,8 @@
 import { observable, computed, action, decorate } from "mobx"
 
 class Store {
-   components = []
-   edit = null
+  @observable components = []
+  @observable edit = null
 
    load(){
     fetch('/api/index')
@@ -33,8 +33,8 @@ class Store {
 }
 
 decorate(Store, {
-  components: observable,
-  edit: observable,
+//  components: observable,
+//  edit: observable,
   load: action,
   refreshData: action,
   putChange: action,
