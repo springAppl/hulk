@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './hotitems.css';
 import { Input, Upload, Icon, message } from 'antd';
+import store from '../../../store/store';
 export default class HotItems extends Component{
     state = {
         loading: false,
@@ -76,7 +77,9 @@ export default class HotItems extends Component{
           }
         }
 
-
+    editMode = () => {
+        store.setEdit(this.props.value);
+    }
 
 
     render(){
@@ -88,7 +91,9 @@ export default class HotItems extends Component{
             </div>
           );
 
-        return (<div className='hotitems'>
+        return (
+            <a onClick={this.editMode}>
+        <div className='hotitems'>
             {
                 this.props.content != null ? this.props.content.items.map((value, index, array) => {
                     return (<div className="item" key={value.id}>
@@ -131,6 +136,8 @@ export default class HotItems extends Component{
                 </Upload>
                 </div>
             </div>):(<div/>)}
-        </div>);
+        </div>
+        </a>
+        );
     }
 }

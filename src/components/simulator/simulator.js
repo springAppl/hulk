@@ -6,11 +6,12 @@ import HotItems from "../minicomponents/hotitems/hotitems";
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import store from '../../store/store';
+import { observer } from "mobx-react"
 const Components = styled.div`
 width: 100%;
 `;
 const Item = styled.div``;
-export default class Simulator extends React.Component {
+class Simulator extends React.Component {
 
   render() {
     var divStyle = {
@@ -36,10 +37,9 @@ export default class Simulator extends React.Component {
           }}
           className="container"
         >
-
             <Droppable droppableId="simulator" direction="vertical">
               {(provided) => {
-                const edit = new Array(store.edit)[0];
+                
                 
                 return <Components
                   innerRef={provided.innerRef}
@@ -55,9 +55,9 @@ export default class Simulator extends React.Component {
                               (provided) => {
                                 var com = null;
                                 if (value.typeId === 'category') {
-                                  com = <Category {...value} index={index}  isEdit={edit[value.id]}/>
+                                  com = <Category {...value} index={index}  isEdit={store.getEdit == value.id}/>
                                 } else if(value.typeId === 'hotitems'){
-                                  com = <HotItems {...value} index={index} />
+                                  com = <HotItems {...value} index={index} isEdit={store.getEdit == value.id}/>
                                 }
                               return  (
                                   <Item
@@ -82,3 +82,5 @@ export default class Simulator extends React.Component {
     );
   }
 }
+Simulator = observer(Simulator)
+export default Simulator

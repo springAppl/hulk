@@ -1,7 +1,7 @@
 import React from 'react';
 import './category.css';
 import { Input, Upload, Icon, message } from 'antd';
-import store from '../../../store/store'
+import store from '../../../store/store';
 export default class Category extends React.Component{
     state = {
         loading: false,
@@ -61,7 +61,9 @@ export default class Category extends React.Component{
           }
         }
 
-
+    editMode = () => {
+        store.setEdit(this.props.id);
+    }
 
     render(){
         const imageUrl = this.state.imageUrl;
@@ -88,7 +90,9 @@ export default class Category extends React.Component{
                 </div>
             </div>);
         }):null;
-        return (<div className='category'>
+        return (
+            <a onClick={this.editMode}>
+        <div className='category'>
             {cat}
             {this.props.isEdit ? (<div className="categoryItem">
                 <div>
@@ -108,6 +112,8 @@ export default class Category extends React.Component{
                     <span></span>
                 </div>
             </div>):(<div/>)}
-        </div>);
+        </div>
+        </a>
+        );
     }
 }

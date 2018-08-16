@@ -46,9 +46,7 @@ class MiniProgram extends Component{
                 typeId: result.draggableId,
                 content: null
             };
-            var edit = store.edit;
-            edit[id] = true;
-            store.setEdit(edit);
+            store.setEdit(id);
         }
         var newItems = Array.from(store.components);
         if(source.droppableId === 'simulator') {
