@@ -11,11 +11,12 @@ import Item from "./components/item/item";
 import MiniProgram from "./components/miniprogram/miniprogram";
 import Order from "./components/order/order";
 import Shop from "./components/shop/shop";
+import Test from "./components/test/test";
+import appState from './components/test/appState';
 const { Header, Content, Footer, Sider } = Layout;
 class App extends Component {
   handleClick = event => {
-    //history.push(event.key)
-    //console.log(event);
+
   };
   render() {
     return (
@@ -25,10 +26,8 @@ class App extends Component {
             breakpoint="lg"
             collapsedWidth="0"
             onBreakpoint={broken => {
-              console.log(broken);
             }}
             onCollapse={(collapsed, type) => {
-              console.log(collapsed, type);
             }}
           >
             <div className="logo" />
@@ -58,6 +57,11 @@ class App extends Component {
                 <span className="nav-text">店铺</span>
                 <Link to="/shop" />
               </Menu.Item>
+              <Menu.Item key="5">
+                <Icon type="user" />
+                <span className="nav-text">测试</span>
+                <Link to="/test" />
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout>
@@ -84,6 +88,7 @@ class App extends Component {
                 <Route path="/shop" component={Shop} />
                 <Route path="/order" component={Order} />
                 <Route path="/item" component={Item} />
+                <Route path="/test" component={Test} />
               </div>
             </Content>
             <Footer
