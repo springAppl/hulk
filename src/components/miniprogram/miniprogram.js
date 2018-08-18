@@ -69,7 +69,7 @@ class MiniProgram extends Component{
                 <DragDropContext
                     onDragEnd={this.onDragEnd}
                 >
-                <div style={{width: '60%', float: 'left', display: 'flex', display: '-webkit-flex', flexDirection: 'row', justifyContent:'center', backgroundImage:`url(${backImage})`}}>
+                <div style={{width: '70%', float: 'left', display: 'flex', display: '-webkit-flex', flexDirection: 'row', justifyContent:'center', backgroundImage:`url(${backImage})`}}>
                     <Simulator  components={store.components} />
                 </div>
                 <div style={{width: '30%', float: 'left', display: 'flex', display: '-webkit-flex', flexDirection: 'row', justifyContent:'center'}}>

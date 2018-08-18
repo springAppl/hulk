@@ -2,8 +2,9 @@ import { observable, computed, action, decorate } from "mobx"
 
 class Store {
   @observable components = []
-  @observable edit = null
+  @observable edit = 10000
 
+  @action
    load(){
     fetch('/api/index')
     .then(response =>  response.json())
@@ -13,17 +14,19 @@ class Store {
       // return data
     });
   }
+
+  @action
   refreshData(data){
     this.components = data
   }
-
+  @action
   putChange(data){
     fetch('/api/index', {
         body: JSON.stringify(data),
         method: 'PUT'
     })
   }
-
+  @action
   setEdit(data){
     this.edit = data
   }

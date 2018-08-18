@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './hotitems.css';
 import { Input, Upload, Icon, message } from 'antd';
 import store from '../../../store/store';
+import {observer} from 'mobx-react';
+@observer
 export default class HotItems extends Component{
     state = {
         loading: false,
@@ -78,7 +80,7 @@ export default class HotItems extends Component{
         }
 
     editMode = () => {
-        store.setEdit(this.props.value);
+        store.setEdit(this.props.id);
     }
 
 
@@ -121,7 +123,7 @@ export default class HotItems extends Component{
                     </div>);
                 }):(<div/>)
             }
-            {this.props.isEdit ? (<div className="item" >
+            {this.props.id == store.edit ? (<div className="item" >
                 <div className='image'>
                 <Upload
                     name="file"

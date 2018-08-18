@@ -9,7 +9,7 @@ export default class Category extends React.Component{
         loading: false,
     };
     changeValue = (e, index, value) => {
-        var newItems = this.props.content == null ? [] : this.props.categories;
+        var newItems = this.props.content == null ? [] : this.props.content.categories;
         newItems.splice(index, 1, {
             id: index,
             name: e.target.value,
@@ -70,7 +70,7 @@ export default class Category extends React.Component{
     render(){
         const imageUrl = this.state.imageUrl;
         const uploadButton = (
-            <div>
+            <div style={{width:60, height:50, margin:0, padding:0}}>
               <Icon type={this.state.loading ? 'loading' : 'plus'} />
               <div className="ant-upload-text">Upload</div>
             </div>
@@ -81,10 +81,9 @@ export default class Category extends React.Component{
                     <img src={value.image} className="image" alt={value.name}/>
                 </div>
                 <div className='span'>
-
                     <span>                    
                         {
-                            this.props.isEdit ? (
+                            this.props.id == store.edit ? (
                                 <Input value={value.name}  onChange={(e) => this.changeValue(e, index, value)} />
                             ):(value.name)
                         }
@@ -96,9 +95,9 @@ export default class Category extends React.Component{
             <a onClick={this.editMode}>
         <div className='category'>
             {cat}
-            {this.props.isEdit ? (<div className="categoryItem">
-                <div>
-                <Upload
+            {this.props.id == store.edit ? (<div className="categoryItem">
+                <div >
+                <Upload 
                     name="file"
                     listType="picture-card"
                     className="avatar-uploader"

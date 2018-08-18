@@ -55,9 +55,9 @@ class Simulator extends React.Component {
                               (provided) => {
                                 var com = null;
                                 if (value.typeId === 'category') {
-                                  com = <Category {...value} index={index}  isEdit={store.getEdit == value.id}/>
+                                  com = <Category {...value} index={index}  />
                                 } else if(value.typeId === 'hotitems'){
-                                  com = <HotItems {...value} index={index} isEdit={store.getEdit == value.id}/>
+                                  com = <HotItems {...value} index={index} />
                                 }
                               return  (
                                   <Item

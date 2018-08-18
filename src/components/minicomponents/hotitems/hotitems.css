@@ -12,7 +12,6 @@
 
 .item {
     width: 50%;
-    height: 250px;
 }
 
 .item .image {
@@ -32,4 +31,12 @@
     color: red;
     font-weight: 600;
     line-height: 26px;
+}
+
+.item .avatar-uploader > .ant-upload {
+    width: 135px;
+    height: 150px;
+}
+.item .ant-upload.ant-upload-select-picture-card > .ant-upload {
+    padding: 0;
 }
