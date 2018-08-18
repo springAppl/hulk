@@ -3,6 +3,7 @@ import { observable, computed, action, decorate } from "mobx"
 class Store {
   @observable components = []
   @observable edit = 10000
+  @observable selectKey = '1'
 
   @action
    load(){
@@ -32,6 +33,11 @@ class Store {
   }
   get getEdit() {
     return this.edit;
+  }
+
+  @action
+  updateSelectKey(key){
+    this.selectKey = key;
   }
 }
 

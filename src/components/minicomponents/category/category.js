@@ -3,6 +3,8 @@ import './category.css';
 import { Input, Upload, Icon, message } from 'antd';
 import store from '../../../store/store';
 import {observer} from 'mobx-react';
+import del from '../../../image/del.png';
+import dd from '../../../image/dd.png';
 @observer
 export default class Category extends React.Component{
     state = {
@@ -66,8 +68,20 @@ export default class Category extends React.Component{
     editMode = () => {
         store.setEdit(this.props.id);
     }
+    delete = () => {
+        var components = Array.from(store.components);
+        components.splice(this.props.index, 1);
+        store.refreshData(components);
+        console.log('del: ' + this.props.index );
+    }
+    delInnerComponent = index => {
+        var components = Array.from(store.components);
+        components[this.props.index].content.categories.splice(index, 1);
+        store.refreshData(components);
+    }
 
     render(){
+        var display = store.edit == this.props.id ? 'block' : 'none';
         const imageUrl = this.state.imageUrl;
         const uploadButton = (
             <div style={{width:60, height:50, margin:0, padding:0}}>
@@ -76,8 +90,9 @@ export default class Category extends React.Component{
             </div>
           );
         const cat = this.props.content != null ? this.props.content.categories.map((value, index, array) => {
-            return (<div key={value.id} className="categoryItem">
+            return (<div key={'' + this.props.id + ':' + index} className="categoryItem">
                 <div>
+                    <a onClick={() => this.delInnerComponent(index)}><img style={{float: 'right', display: display}} src={dd} /></a>
                     <img src={value.image} className="image" alt={value.name}/>
                 </div>
                 <div className='span'>
@@ -91,30 +106,40 @@ export default class Category extends React.Component{
                 </div>
             </div>);
         }):null;
+
         return (
-            <a onClick={this.editMode}>
-        <div className='category'>
-            {cat}
-            {this.props.id == store.edit ? (<div className="categoryItem">
-                <div >
-                <Upload 
-                    name="file"
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    showUploadList={false}
-                    action="/api/image/"
-                    beforeUpload={this.beforeUpload}
-                    onChange={this.handleChange}
-                >
-                    {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-                </Upload>
+            <div>
+                <a onClick={this.delete}>
+                <div style={{display: display, backgroundColor:'white', height: 16}}>
+                    <img style={{float: 'left', backgroundColor: '#FA8072'}} src={del}/>
                 </div>
-                <div className='span'>
-                    <span></span>
-                </div>
-            </div>):(<div/>)}
-        </div>
-        </a>
+                </a>
+                <a onClick={this.editMode}>
+                        <div className='category'>
+                            {cat}
+                            {this.props.id == store.edit ? (<div className="categoryItem">
+                                <div >
+                                <Upload 
+                                    name="file"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList={false}
+                                    action="/api/image/"
+                                    beforeUpload={this.beforeUpload}
+                                    onChange={this.handleChange}
+                                >
+                                    {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
+                                </Upload>
+                                </div>
+                                <div className='span'>
+                                    <span></span>
+                                </div>
+                            </div>):(<div/>)}
+                        </div>
+                        </a>
+
+            </div>
+            
         );
     }
 }

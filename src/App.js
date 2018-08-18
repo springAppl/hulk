@@ -13,10 +13,14 @@ import Order from "./components/order/order";
 import Shop from "./components/shop/shop";
 import Test from "./components/test/test";
 import appState from './components/test/appState';
+import store from './store/store';
+import { observer } from "mobx-react"
 const { Header, Content, Footer, Sider } = Layout;
+@observer
 class App extends Component {
-  handleClick = event => {
-
+  handleClick = art => {
+    const {item, key, keyPath} = art;
+    store.updateSelectKey(key);
   };
   render() {
     return (
@@ -34,7 +38,7 @@ class App extends Component {
             <Menu
               theme="dark"
               mode="inline"
-              defaultSelectedKeys={["1"]}
+              defaultSelectedKeys={[store.selectKey]}
               onClick={this.handleClick}
             >
               <Menu.Item key="1">
@@ -83,7 +87,7 @@ class App extends Component {
                   minHeight: 850
                 }}
               >
-                <Redirect to="/miniprogram" />
+                <Route exact to="/miniprogram" />
                 <Route path="/miniprogram" component={MiniProgram} />
                 <Route path="/shop" component={Shop} />
                 <Route path="/order" component={Order} />

@@ -3,6 +3,9 @@ import './hotitems.css';
 import { Input, Upload, Icon, message } from 'antd';
 import store from '../../../store/store';
 import {observer} from 'mobx-react';
+import del from '../../../image/del.png';
+import dd from '../../../image/dd.png';
+const { TextArea } = Input;
 @observer
 export default class HotItems extends Component{
     state = {
@@ -68,23 +71,37 @@ export default class HotItems extends Component{
               loading: false,
             }));
             // TODO 
-            var newItems = this.props.items == null ? [] : this.props.items;
+            var newItems = this.props.content == null ? [] : this.props.content.items;
             newItems.push({
-                id: newItems.length,
                 image: info.file.response
             });
-            this.props.changeContent({
+            var components = Array.from(store.components);
+            var item = components[this.props.index];
+            item.content = {
                 items: newItems
-            });
+            }
+            components.splice(this.props.index, 1, item);
+            store.refreshData(components);
+
           }
         }
 
     editMode = () => {
         store.setEdit(this.props.id);
     }
-
-
+    delete = () => {
+        var components = Array.from(store.components);
+        components.splice(this.props.index, 1);
+        store.refreshData(components);
+        console.log('del: ' + this.props.index );
+    }
+    delInnerComponent = index => {
+        var components = Array.from(store.components);
+        components[this.props.index].content.categories.splice(index, 1);
+        store.refreshData(components);
+    }
     render(){
+        
         const imageUrl = this.state.imageUrl;
         const uploadButton = (
             <div>
@@ -92,32 +109,40 @@ export default class HotItems extends Component{
               <div className="ant-upload-text">Upload</div>
             </div>
           );
-
+          var edit = this.props.id == store.edit;
+          var display = store.edit == this.props.id ? 'block' : 'none';
         return (
+            <div>
+                <a onClick={this.delete}>
+            <div style={{display: display, backgroundColor:'white', height: 16}}>
+                <img style={{float: 'left', backgroundColor: '#FA8072'}} src={del}/>
+            </div>
+            </a>
             <a onClick={this.editMode}>
         <div className='hotitems'>
             {
                 this.props.content != null ? this.props.content.items.map((value, index, array) => {
-                    return (<div className="item" key={value.id}>
+                    return (<div className="item" key={index}>
                         <div className='image'>
+                            <a onClick={() => this.delInnerComponent(index)}><img style={{float: 'right', display: display}} src={dd} /></a>
                             <img src={value.image} className="image" alt={value.name}/>
                         </div>
                         <div className='description'>
                         <span>                    
                             {
-                                this.props.isEdit ? (
-                                    <Input value={value.name} onChange={(e) => this.changeName(e, index, value)} />
+                                edit ? (
+                                    <TextArea rows={4} value={value.name} onChange={(e) => this.changeName(e, index, value)} />
                                 ):(value.name)
                             }
                         </span>
                         </div>
                         <div className='price'>
                             <span>                    
-                                {
-                                    this.props.isEdit ? (
-                                        <Input value={value.price} onChange={(e) => this.changePrice(e, index, value)} />
+                            {
+                                    edit ? (
+                                        <Input style={{width: 100}} value={value.price} onChange={(e) => this.changePrice(e, index, value)} />
                                     ):(value.price)
-                                }
+                            }    
                             </span>
                         </div>
                     </div>);
@@ -140,6 +165,7 @@ export default class HotItems extends Component{
             </div>):(<div/>)}
         </div>
         </a>
+            </div>
         );
     }
 }

@@ -40,3 +40,10 @@
 .item .ant-upload.ant-upload-select-picture-card > .ant-upload {
     padding: 0;
 }
+textarea.ant-input {
+    margin: 0;
+    padding: 0;
+}
+.ant-input {
+    line-height: 1.4;
+}
