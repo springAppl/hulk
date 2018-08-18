@@ -19,6 +19,9 @@ class MiniProgram extends Component{
     submit = e => {
         store.putChange(store.components)
     }
+    changeTemplate = () => {
+        store.template();
+    }
     fetchID() {
             return fetch('/api/index/id', {
                 method: 'POST'
@@ -77,7 +80,8 @@ class MiniProgram extends Component{
                 </div>
                 </DragDropContext>
             </Content>
-            <Button type='primary' onClick={this.submit}>提交</Button>
+            <Button type='primary' onClick={this.submit}>提交</Button><br/>
+            <Button type='primary' onClick={this.changeTemplate}>使用基本模板</Button>
           {/* <DevTools /> */}
         </div>);
     }

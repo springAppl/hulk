@@ -12,11 +12,13 @@ export default class Category extends React.Component{
     };
     changeValue = (e, index, value) => {
         var newItems = this.props.content == null ? [] : this.props.content.categories;
-        newItems.splice(index, 1, {
+        var components = Array.from(store.components);
+        components[this.props.index].content.categories.splice(index, 1, {
             id: index,
             name: e.target.value,
             image: value.image
         });
+        store.refreshData(components);
     }
     getBase64 = (img, callback) => {
         const reader = new FileReader();
@@ -72,7 +74,6 @@ export default class Category extends React.Component{
         var components = Array.from(store.components);
         components.splice(this.props.index, 1);
         store.refreshData(components);
-        console.log('del: ' + this.props.index );
     }
     delInnerComponent = index => {
         var components = Array.from(store.components);

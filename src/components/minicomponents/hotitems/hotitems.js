@@ -15,28 +15,26 @@ export default class HotItems extends Component{
 
       changeName = (e, index, value) => {
         var newItems = this.props.items == null ? [] : this.props.items;
-        newItems.splice(index, 1, {
+        var components = Array.from(store.components);
+        components[this.props.index].content.items.splice(index, 1, {
             id: index,
             name: e.target.value,
             image: value.image,
             price: value.price
         });
-        this.props.changeContent({
-            items: newItems
-        });
+        store.refreshData(components);
     }
 
     changePrice = (e, index, value) => {
         var newItems = this.props.items == null ? [] : this.props.items;
-        newItems.splice(index, 1, {
+        var components = Array.from(store.components);
+        components[this.props.index].content.items.splice(index, 1, {
             id: index,
             price: e.target.value,
             image: value.image,
             name: value.name
         });
-        this.props.changeContent({
-            items: newItems
-        });
+        store.refreshData(components);
     }
 
 
@@ -93,11 +91,10 @@ export default class HotItems extends Component{
         var components = Array.from(store.components);
         components.splice(this.props.index, 1);
         store.refreshData(components);
-        console.log('del: ' + this.props.index );
     }
     delInnerComponent = index => {
         var components = Array.from(store.components);
-        components[this.props.index].content.categories.splice(index, 1);
+        components[this.props.index].content.items.splice(index, 1);
         store.refreshData(components);
     }
     render(){

@@ -15,6 +15,16 @@ class Store {
       // return data
     });
   }
+  @action
+   template(){
+    fetch('/api/index/template', {method: 'PUT'})
+    .then(response =>  response.json())
+    .then(data => {
+      return this.components = data
+      console.log(this.components)
+      // return data
+    });
+  }
 
   @action
   refreshData(data){

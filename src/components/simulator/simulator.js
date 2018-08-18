@@ -37,7 +37,7 @@ class Simulator extends React.Component {
           }}
           className="container"
         >
-            <Droppable droppableId="simulator" direction="vertical">
+            <Droppable styled={{minHeight:483}} droppableId="simulator" direction="vertical">
               {(provided) => {
                 
                 
@@ -46,6 +46,7 @@ class Simulator extends React.Component {
                   {...provided.droppableProps}
                   style={{
                     backgroundColor: provided.isDragging ? 'green' : 'lightblue',
+                    minHeight: 483
                   }}
                 >
                   {
