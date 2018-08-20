@@ -109,10 +109,10 @@ export default class HotItems extends Component{
           var edit = this.props.id == store.edit;
           var display = store.edit == this.props.id ? 'block' : 'none';
         return (
-            <div>
+            <div className="componentWrapper">
                 <a onClick={this.delete}>
             <div style={{display: display, backgroundColor:'white', height: 16}}>
-                <img style={{float: 'left', backgroundColor: '#FA8072'}} src={del}/>
+                <img style={{ backgroundColor: '#FA8072'}} src={del}/>
             </div>
             </a>
             <a onClick={this.editMode}>

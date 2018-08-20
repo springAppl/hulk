@@ -9,8 +9,13 @@ import store from '../../store/store';
 import { observer } from "mobx-react"
 const Components = styled.div`
 width: 100%;
+display: block;
 `;
-const Item = styled.div``;
+const Item = styled.div`
+width: 100%;
+margin: 0px;
+background-color: red
+`;
 class Simulator extends React.Component {
 
   render() {
@@ -18,35 +23,28 @@ class Simulator extends React.Component {
       backgroundImage: "url(" + hardware + ")",
       height: 628,
       width: 319,
-      minWidth: 319,
       margin: 0
     };
     return (
       <div style={divStyle}>
         <div
           style={{
-            height: 73
+            height: 73,
+            width: 319
           }}
         />
-        <div
-          style={{
-            background: "white",
-            height: 483,
-            width: 274,
-            marginLeft: 21
-          }}
-          className="container"
-        >
-            <Droppable styled={{minHeight:483}} droppableId="simulator" direction="vertical">
+        <Droppable  droppableId="simulator" direction="vertical">
               {(provided) => {
-                
-                
                 return <Components
+                className="container"
+
                   innerRef={provided.innerRef}
                   {...provided.droppableProps}
                   style={{
                     backgroundColor: provided.isDragging ? 'green' : 'lightblue',
-                    minHeight: 483
+                    height: 483,
+                    width: 274,
+                    marginLeft: 21
                   }}
                 >
                   {
@@ -78,7 +76,6 @@ class Simulator extends React.Component {
                 </Components>
               }}
             </Droppable>
-        </div>
       </div>
     );
   }

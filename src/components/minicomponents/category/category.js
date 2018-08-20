@@ -109,10 +109,10 @@ export default class Category extends React.Component{
         }):null;
 
         return (
-            <div>
+            <div className="componentWrapper">
                 <a onClick={this.delete}>
                 <div style={{display: display, backgroundColor:'white', height: 16}}>
-                    <img style={{float: 'left', backgroundColor: '#FA8072'}} src={del}/>
+                    <img style={{ backgroundColor: '#FA8072'}} src={del}/>
                 </div>
                 </a>
                 <a onClick={this.editMode}>
