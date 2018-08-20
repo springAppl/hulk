@@ -12,7 +12,6 @@ import MiniProgram from "./components/miniprogram/miniprogram";
 import Order from "./components/order/order";
 import Shop from "./components/shop/shop";
 import Test from "./components/test/test";
-import appState from './components/test/appState';
 import store from './store/store';
 import { observer } from "mobx-react"
 const { Header, Content, Footer, Sider } = Layout;
@@ -87,7 +86,7 @@ class App extends Component {
                   minHeight: 850
                 }}
               >
-                <Route exact to="/miniprogram" />
+                <Route exact path="/" component={MiniProgram} />
                 <Route path="/miniprogram" component={MiniProgram} />
                 <Route path="/shop" component={Shop} />
                 <Route path="/order" component={Order} />

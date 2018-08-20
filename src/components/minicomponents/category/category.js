@@ -11,7 +11,6 @@ export default class Category extends React.Component{
         loading: false,
     };
     changeValue = (e, index, value) => {
-        var newItems = this.props.content == null ? [] : this.props.content.categories;
         var components = Array.from(store.components);
         components[this.props.index].content.categories.splice(index, 1, {
             id: index,

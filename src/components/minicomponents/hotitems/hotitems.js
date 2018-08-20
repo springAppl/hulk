@@ -138,7 +138,7 @@ export default class HotItems extends Component{
                             {
                                     edit ? (
                                         <Input style={{width: 100}} value={value.price} onChange={(e) => this.changePrice(e, index, value)} />
-                                    ):(value.price)
+                                    ):(( value.price / 100 ).toFixed( 2 ))
                             }    
                             </span>
                         </div>
