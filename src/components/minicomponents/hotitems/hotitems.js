@@ -14,7 +14,6 @@ export default class HotItems extends Component{
 
 
       changeName = (e, index, value) => {
-        var newItems = this.props.items == null ? [] : this.props.items;
         var components = Array.from(store.components);
         components[this.props.index].content.items.splice(index, 1, {
             id: index,
@@ -26,7 +25,6 @@ export default class HotItems extends Component{
     }
 
     changePrice = (e, index, value) => {
-        var newItems = this.props.items == null ? [] : this.props.items;
         var components = Array.from(store.components);
         components[this.props.index].content.items.splice(index, 1, {
             id: index,
