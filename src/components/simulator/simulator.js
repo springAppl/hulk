@@ -7,6 +7,7 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import store from '../../store/store';
 import { observer } from "mobx-react"
+
 const Components = styled.div`
 width: 100%;
 display: block;

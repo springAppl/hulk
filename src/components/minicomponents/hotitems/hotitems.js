@@ -5,6 +5,10 @@ import store from '../../../store/store';
 import {observer} from 'mobx-react';
 import del from '../../../image/del.png';
 import dd from '../../../image/dd.png';
+
+import close from '../../../image/close.png';
+import trash from '../../../image/trash.png';
+
 const { TextArea } = Input;
 @observer
 export default class HotItems extends Component{
@@ -43,7 +47,7 @@ export default class HotItems extends Component{
         reader.addEventListener('load', () => callback(reader.result));
         reader.readAsDataURL(img);
       }
-      
+
       beforeUpload = (file) => {
         const isJPG = file.type === 'image/jpeg';
         if (!isJPG) {
@@ -55,7 +59,7 @@ export default class HotItems extends Component{
         }
         return isJPG && isLt2M;
       }
-      
+
         handleChange = (info) => {
           if (info.file.status === 'uploading') {
             this.setState({ loading: true });
@@ -68,7 +72,7 @@ export default class HotItems extends Component{
               imageUrl: null,
               loading: false,
             }));
-            // TODO 
+            // TODO
             var newItems = this.props.content == null ? [] : this.props.content.items;
             newItems.push({
                 image: info.file.response
@@ -98,7 +102,7 @@ export default class HotItems extends Component{
         store.refreshData(components);
     }
     render(){
-        
+
         const imageUrl = this.state.imageUrl;
         const uploadButton = (
             <div>
@@ -107,40 +111,42 @@ export default class HotItems extends Component{
             </div>
           );
           var edit = this.props.id == store.edit;
-          var display = store.edit == this.props.id ? 'block' : 'none';
+          var display = store.edit == this.props.id ? 'flex' : 'none';
         return (
             <div className="componentWrapper">
-                <a onClick={this.delete}>
-            <div style={{display: display, backgroundColor:'white', height: 16}}>
-                <img style={{ backgroundColor: '#FA8072'}} src={del}/>
+            <div onClick={this.delete} className="deleteList" style={{display: display}}>
+              <div className="trashBtn">
+                <img src={trash}/>
+              </div>
             </div>
-            </a>
             <a onClick={this.editMode}>
         <div className='hotitems'>
             {
                 this.props.content != null ? this.props.content.items.map((value, index, array) => {
                     return (<div className="item" key={index}>
                         <div className='image'>
-                            <a onClick={() => this.delInnerComponent(index)}><img style={{float: 'right', display: display}} src={dd} /></a>
+                            <img className="deleteItem" onClick={() => this.delInnerComponent(index)} style={{float: 'right', display: display}} src={close} />
                             <img src={value.image} className="image" alt={value.name}/>
                         </div>
                         <div className='description'>
-                        <span>                    
+
                             {
                                 edit ? (
                                     <TextArea rows={4} value={value.name} onChange={(e) => this.changeName(e, index, value)} />
                                 ):(value.name)
                             }
-                        </span>
+
                         </div>
                         <div className='price'>
-                            <span>                    
+
                             {
                                     edit ? (
-                                        <Input style={{width: 100}} value={value.price} onChange={(e) => this.changePrice(e, index, value)} />
+                                      <div>
+                                        <Input className="priceEdit" value={value.price} onChange={(e) => this.changePrice(e, index, value)} /> <span>元</span>
+                                      </div>
                                     ):(( value.price / 100 ).toFixed( 2 ))
-                            }    
-                            </span>
+                            }
+
                         </div>
                     </div>);
                 }):(<div/>)

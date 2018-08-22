@@ -4,29 +4,73 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: space-around;
     width: 100%;
-    background: white;
+    background: #fff;
 }
-
+.deleteList{
+  width: 100%;
+  display: flex;
+  /* background-color: rgb(158, 158, 158); */
+  padding: 10px;
+}
+.trashBtn{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #e2e2e2;
+  padding: 4px 0;
+  border-radius: 4px;
+}
+.trashBtn img{
+  margin: auto;
+  width: 36px;
+  height: 36px;
+}
 .item {
-    width: 50%;
+    width: 48%;
+    margin-bottom: 10px;
 }
 
 .item .image {
     width: 100%;
     height: 150px;
+    position: relative;
+    object-fit: cover;
 }
-
+.deleteItem{
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    background-color: #e2e2e2;
+    position: absolute;
+    border-radius: 50%;
+    top: 6px;
+    z-index: 2;
+    object-fit: cover;
+    right: 6px;
+}
 .item .description {
-    height: 78px;
+    height:60px;
+    min-height: 40px;
     font-weight: 600;
+    margin: 6px 0;
+    /* 最多出现三行，多余部分以省略号表示*/
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
-
+textarea.ant-input{
+  height: 100%;
+  border-radius: 0;
+}
+.priceEdit{
+  width: 100px;
+  border-radius: 0;
+}
 .item .price {
     width: 100%;
-    margin: 5px;
     font-size: 15px;
     color: red;
     font-weight: 600;
