@@ -5,6 +5,10 @@ import store from '../../../store/store';
 import {observer} from 'mobx-react';
 import del from '../../../image/del.png';
 import dd from '../../../image/dd.png';
+
+import close from '../../../image/close.png';
+import trash from '../../../image/trash.png';
+
 @observer
 export default class Category extends React.Component{
     state = {
@@ -24,7 +28,7 @@ export default class Category extends React.Component{
         reader.addEventListener('load', () => callback(reader.result));
         reader.readAsDataURL(img);
       }
-      
+
       beforeUpload = (file) => {
         const isJPG = file.type === 'image/jpeg';
         if (!isJPG) {
@@ -38,7 +42,7 @@ export default class Category extends React.Component{
       }
 
 
-      
+
         handleChange = (info) => {
           if (info.file.status === 'uploading') {
             this.setState({ loading: true });
@@ -50,7 +54,7 @@ export default class Category extends React.Component{
               imageUrl: null,
               loading: false,
             }));
-            // TODO 
+            // TODO
             var newCategories = this.props.content == null ? [] : this.props.content.categories;
             newCategories.push({
                 id: newCategories.length,
@@ -92,11 +96,11 @@ export default class Category extends React.Component{
         const cat = this.props.content != null ? this.props.content.categories.map((value, index, array) => {
             return (<div key={'' + this.props.id + ':' + index} className="categoryItem">
                 <div>
-                    <a onClick={() => this.delInnerComponent(index)}><img style={{float: 'right', display: display}} src={dd} /></a>
+                    <img className="deleteCateItem" onClick={() => this.delInnerComponent(index)} style={{float: 'right', display: display}} src={close} />
                     <img src={value.image} className="image" alt={value.name}/>
                 </div>
                 <div className='span'>
-                    <span>                    
+                    <span>
                         {
                             this.props.id == store.edit ? (
                                 <Input value={value.name}  onChange={(e) => this.changeValue(e, index, value)} />
@@ -110,8 +114,10 @@ export default class Category extends React.Component{
         return (
             <div className="componentWrapper">
                 <a onClick={this.delete}>
-                <div style={{display: display, backgroundColor:'white', height: 16}}>
-                    <img style={{ backgroundColor: '#FA8072'}} src={del}/>
+                <div className="deleteList" style={{display: display}}>
+                  <div className="trashBtn">
+                    <img src={trash}/>
+                  </div>
                 </div>
                 </a>
                 <a onClick={this.editMode}>
@@ -119,7 +125,7 @@ export default class Category extends React.Component{
                             {cat}
                             {this.props.id == store.edit ? (<div className="categoryItem">
                                 <div >
-                                <Upload 
+                                <Upload
                                     name="file"
                                     listType="picture-card"
                                     className="avatar-uploader"
@@ -139,7 +145,7 @@ export default class Category extends React.Component{
                         </a>
 
             </div>
-            
+
         );
     }
 }

@@ -6,6 +6,7 @@ import HotItems from "../minicomponents/hotitems/hotitems";
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import { observer } from "mobx-react"
+
 const Components = styled.div`
 width: 100%;
 display: block;
