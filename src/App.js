@@ -14,6 +14,7 @@ import Shop from "./components/shop/shop";
 import Test from "./components/test/test";
 import store from './store/store';
 import { observer } from "mobx-react"
+import Login from './components/login';
 const { Header, Content, Footer, Sider } = Layout;
 @observer
 class App extends Component {
@@ -24,6 +25,9 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <div>
+        <Route path="/login" component={Login}/>
+        <Route exact path="/">
         <Layout >
           <Sider
             breakpoint="lg"
@@ -103,6 +107,8 @@ class App extends Component {
             </Footer>
           </Layout>
         </Layout>
+        </Route>
+        </div>
       </Router>
     );
   }

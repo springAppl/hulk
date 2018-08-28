@@ -5,7 +5,6 @@ import Category from "../minicomponents/category/category";
 import HotItems from "../minicomponents/hotitems/hotitems";
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import store from '../../store/store';
 import { observer } from "mobx-react"
 const Components = styled.div`
 width: 100%;
