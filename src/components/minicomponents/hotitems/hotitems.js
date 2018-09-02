@@ -140,9 +140,9 @@ export default class HotItems extends Component{
                             {
                                     edit ? (
                                       <div>
-                                        <Input className="priceEdit" value={value.price} onChange={(e) => this.changePrice(e, index, value)} /> <span>元</span>
+                                        <Input className="priceEdit" value={value.price} onChange={(e) => this.changePrice(e, index, value)} /> 
                                       </div>
-                                    ):(( value.price / 100 ).toFixed( 2 ))
+                                    ):(<div>{( value.price / 100 ).toFixed( 2 )} <span>元</span> </div> )
                             }
 
                         </div>
