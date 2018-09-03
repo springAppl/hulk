@@ -1,12 +1,7 @@
 import React from 'react'
 import styled, { css} from 'styled-components'
-import { IconContext } from "react-icons";
-import { FaBeer } from 'react-icons/fa';
 import logo from './../../logo.svg'
 import {Droppable, Draggable } from 'react-beautiful-dnd';
-const Components = styled.div`
-width: 400px
-`;
 const Lists = [
   {id: 1, typeId: 'category', icon: logo, title: '类目组件'},
   {id: 2, typeId: 'hotitems', icon: logo, title: '商品组件'},

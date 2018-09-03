@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    /* justify-content: space-around; */
     width: 100%;
     background: #fff;
 }
@@ -28,15 +28,16 @@
   height: 36px;
 }
 .item {
-    width: 48%;
+    width: 50%;
     margin-bottom: 10px;
+    padding: 0 5px;
 }
 
 .item .image {
     width: 100%;
     height: 150px;
     position: relative;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 .deleteItem{
     width: 32px;
