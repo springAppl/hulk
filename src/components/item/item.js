@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Button } from 'antd';
 import {get} from '../tools/fetch';
+import store from '../../store/store';
 const columns = [
   {
       title: '编号',
@@ -31,7 +32,8 @@ export default class Item extends React.Component{
                 current: 1
             },
             loading: true,
-        }
+        };
+        store.updateSelectKey('2');
     }
 
     componentWillMount() {

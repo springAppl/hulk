@@ -41,7 +41,7 @@ class App extends Component {
             <Menu
               theme="dark"
               mode="inline"
-              defaultSelectedKeys={[store.selectKey]}
+              selectedKeys={[store.selectKey]}
               onClick={this.handleClick}
             >
               <Menu.Item key="1">
@@ -103,7 +103,7 @@ class App extends Component {
                 textAlign: "center"
               }}
             >
-              Ant Design ©2018 Created by Ant UED
+              kuboot ©2018 Created by Ant UED
             </Footer>
           </Layout>
         </Layout>
