@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from 'antd';
+import { Table, Button } from 'antd';
 import {get} from '../tools/fetch';
 const columns = [
   {
@@ -10,14 +10,13 @@ const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
-    sorter: true,
     width: '20%',
   }, {
     title: '金额',
     dataIndex: 'price',
     width: '20%',
   }, {
-    title: '图片',
+    title: '操作',
     dataIndex: 'image',
   }];
 export default class Item extends React.Component{
@@ -27,22 +26,28 @@ export default class Item extends React.Component{
         this.state = {
             data: [],
             pagination: {
-                position: 'bottom'
+                position: 'bottom',
+                pageSize: 10,
+                current: 1
             },
             loading: true,
         }
     }
 
     componentWillMount() {
+        this.getItems(this.state.pagination);
+    }
+
+    handleTableChange = (pagination, filters, sorter) => {
+        this.getItems(pagination);
+    }
+
+    getItems = (pagination) => {
         var name = '';
         var id = '';
-        var argu = `?name=${name}&id=${id}`;
+        var argu = `?name=${name}&id=${id}&pageSize=${pagination.pageSize}&pageNumber=${pagination.current}`;
         get('/api/item/paging'+ argu, (data) => {
-            const pagination = { ...this.state.pagination };
-            // Read total count from server
-            // pagination.total = data.totalCount;
             pagination.total = data.total;
-            pagination
             this.setState({
                 data: data.elements,
                 loading: false,
@@ -51,16 +56,11 @@ export default class Item extends React.Component{
         });
     }
 
-    handleTableChange = (pagination, filters, sorter) => {
-        console.log(pagination);
-        console.log(filters);
-        console.log(sorter);
-    }
-
 
     render(){
         return (<div>
-                  <Table
+                <Button type="primary">新建</Button>
+                <Table
                     columns={columns}
                     rowKey={record => record.id}
                     dataSource={this.state.data}
