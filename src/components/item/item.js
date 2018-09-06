@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Button } from 'antd';
 import {get} from '../tools/fetch';
 import store from '../../store/store';
+import {Link} from 'react-router-dom';
 const columns = [
   {
       title: '编号',
@@ -61,7 +62,12 @@ export default class Item extends React.Component{
 
     render(){
         return (<div>
-                <Button type="primary">新建</Button>
+                <Link to="/item/new">
+                <Button type="primary" style={{
+                    float: 'right',
+                    width: 100
+                }}>新建</Button>
+                </Link>
                 <Table
                     columns={columns}
                     rowKey={record => record.id}

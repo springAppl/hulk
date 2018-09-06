@@ -3,8 +3,7 @@ import { Layout, Menu, Icon } from "antd";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Redirect
+  Link
 } from "react-router-dom";
 import "./App.css";
 import Item from "./components/item/item";
@@ -15,13 +14,10 @@ import Test from "./components/test/test";
 import store from './store/store';
 import { observer } from "mobx-react"
 import Login from './components/login';
+import ItemNew from './components/item/item_new';
 const { Header, Content, Footer, Sider } = Layout;
 @observer
 class App extends Component {
-  handleClick = art => {
-    const {item, key, keyPath} = art;
-    store.updateSelectKey(key);
-  };
   render() {
     return (
       <Router>
@@ -42,7 +38,6 @@ class App extends Component {
               theme="dark"
               mode="inline"
               selectedKeys={[store.selectKey]}
-              onClick={this.handleClick}
             >
               <Menu.Item key="1">
                 <Icon type="user" />
@@ -95,6 +90,7 @@ class App extends Component {
                 <Route path="/shop" component={Shop} />
                 <Route path="/order" component={Order} />
                 <Route path="/item" component={Item} />
+                <Route path="/item/new" component={ItemNew}/>
                 <Route path="/test" component={Test} />
               </div>
             </Content>

@@ -3,9 +3,6 @@ import './category.css';
 import { Input, Upload, Icon, message } from 'antd';
 import store from '../../../store/store';
 import {observer} from 'mobx-react';
-import del from '../../../image/del.png';
-import dd from '../../../image/dd.png';
-
 import close from '../../../image/close.png';
 import trash from '../../../image/trash.png';
 
