@@ -90,7 +90,6 @@ class App extends Component {
                 <Route path="/shop" component={Shop} />
                 <Route path="/order" component={Order} />
                 <Route path="/item" component={Item} />
-                <Route path="/item/new" component={ItemNew}/>
                 <Route path="/test" component={Test} />
               </div>
             </Content>
