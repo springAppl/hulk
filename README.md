@@ -37,3 +37,4 @@ http {
 
 
 访问 http://admin.mini.com
+后端swagger地址: http://kuboot.cn/swagger-ui.html
