@@ -36,5 +36,5 @@ http {
 2 yarn start<br/>
 
 
-访问 http://admin.mini.com
+访问 http://admin.mini.com<br/>
 后端swagger地址: http://kuboot.cn/swagger-ui.html
