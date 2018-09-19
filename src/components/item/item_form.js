@@ -9,27 +9,15 @@ function getBase64(img, callback) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
-  }
-  
-  function beforeUpload(file) {
-    const isJPG = file.type === 'image/jpeg';
-    if (!isJPG) {
-      message.error('You can only upload JPG file!');
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
-    }
-    return isJPG && isLt2M;
-  }
+}
 
 
 class Item extends React.Component {
     state = {
         loading: false,
-      };
+    };
     
-      handleChange = (info) => {
+    handleChange = (info) => {
         if (info.file.status === 'uploading') {
           this.setState({ loading: true });
           return;
@@ -42,21 +30,27 @@ class Item extends React.Component {
             imageResponse: info.file.response,
           }));
         }
-      }
-
-
-
+    }
 
     handleSubmit = (e) => {
         e.preventDefault();
         var data = this.props.form.getFieldsValue();
         data.image = this.state.imageResponse;
-        console.log(data);
+        data.id = this.state.itemID;
         put('/api/item', data);
         window.location = '/item';
     }
 
-
+    componentDidMount() {
+        this.props.form.setFieldsValue({
+            'name': this.props.itemName,
+            'price': this.props.itemPrice
+        });
+        this.setState({
+            imageUrl: this.props.itemImage,
+            itemID: this.props.itemID,
+        });
+    }
 
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -65,18 +59,19 @@ class Item extends React.Component {
               <Icon type={this.state.loading ? 'loading' : 'plus'} />
               <div className="ant-upload-text">Upload</div>
             </div>
-          );
+        );
         const imageUrl = this.state.imageUrl;
         return (
             <Form onSubmit={this.handleSubmit}>
                 <FormItem>
-                {getFieldDecorator('name', {
-                    rules: [{ required: true, message: 'Please input item name!' }],
-                })
-                (
-                    <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="name" />
-                )
-                }
+                    {
+                        getFieldDecorator('name', {
+                            rules: [{ required: true, message: 'Please input item name!' }],
+                        })
+                        (
+                            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="商品名称" />
+                        )
+                    }
                 </FormItem>
                 <FormItem>
                     {
@@ -88,14 +83,14 @@ class Item extends React.Component {
                     }
                 </FormItem>
                 <FormItem>
-                <Upload
-                    name="file"
-                    action="/api/image"
-                    // beforeUpload={beforeUpload}
-                    onChange={this.handleChange}
-                >
-                    {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
-                </Upload>
+                    <Upload
+                        name="file"
+                        action="/api/image"
+                        onChange={this.handleChange}
+                    >
+                        {imageUrl ? <img src={imageUrl} alt="image" /> : uploadButton}
+                        {this.props.itemImage ? uploadButton : <div/>}
+                    </Upload>
                 </FormItem>
                 <FormItem>
                     <Button type="primary" htmlType="submit" className="login-form-button">
@@ -106,4 +101,5 @@ class Item extends React.Component {
         );
     }
 }
-export const ItemForm = Form.create()(Item);
+const ItemForm = Form.create()(Item);
+export default ItemForm;

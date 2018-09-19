@@ -1,5 +1,6 @@
 import React from 'react';
 import {get} from '../tools/fetch';
+import ItemForm from './item_form';
 export default class ItemDetail extends React.Component{
     
     constructor(props){
@@ -24,8 +25,12 @@ export default class ItemDetail extends React.Component{
         (<div/>)
         :
         (<div>
-            商品名称{this.state.data.name}
-            <img src={this.state.data.image}/>
+            <ItemForm  
+            itemID={this.state.data.id}
+            itemName={this.state.data.name} 
+            itemPrice={this.state.data.price} 
+            itemImage={this.state.data.image} 
+            />
         </div>);
         return (view);
     }
