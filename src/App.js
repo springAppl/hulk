@@ -1,108 +1,19 @@
-import React, { Component } from "react";
-import { Layout, Menu, Icon } from "antd";
+import React from "react";
 import {
   BrowserRouter as Router,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
-import "./App.css";
-import Item from "./components/item/item";
-import MiniProgram from "./components/miniprogram/miniprogram";
-import Order from "./components/order/order";
-import Shop from "./components/shop/shop";
-import Test from "./components/test/test";
-import store from './store/store';
-import { observer } from "mobx-react"
 import Login from './components/login';
-import ItemNew from './components/item/item_new';
-const { Header, Content, Footer, Sider } = Layout;
-@observer
-class App extends Component {
+import Boot from './components/boot';
+
+
+class App extends React.Component {
   render() {
     return (
       <Router>
         <div>
-        <Route path="/login" component={Login}/>
-        <Route exact path="/">
-        <Layout >
-          <Sider
-            breakpoint="lg"
-            collapsedWidth="0"
-            onBreakpoint={broken => {
-            }}
-            onCollapse={(collapsed, type) => {
-            }}
-          >
-            <div className="logo" />
-            <Menu
-              theme="dark"
-              mode="inline"
-              selectedKeys={[store.selectKey]}
-            >
-              <Menu.Item key="1">
-                <Icon type="user" />
-                <span className="nav-text">小程序</span>
-                <Link to="/miniprogram" />
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span className="nav-text">商品</span>
-                <Link to="/item" />
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span className="nav-text">订单</span>
-                <Link to="/order" />
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Icon type="user" />
-                <span className="nav-text">店铺</span>
-                <Link to="/shop" />
-              </Menu.Item>
-              <Menu.Item key="5">
-                <Icon type="user" />
-                <span className="nav-text">测试</span>
-                <Link to="/test" />
-              </Menu.Item>
-            </Menu>
-          </Sider>
-          <Layout>
-            <Header
-              style={{
-                background: "#fff",
-                padding: 0
-              }}
-            />
-            <Content
-              style={{
-                margin: "24px 16px 0"
-              }}
-            >
-              <div
-                style={{
-                  padding: 24,
-                  background: "#fff",
-                  minHeight: 850
-                }}
-              >
-                <Route exact path="/" component={MiniProgram} />
-                <Route path="/miniprogram" component={MiniProgram} />
-                <Route path="/shop" component={Shop} />
-                <Route path="/order" component={Order} />
-                <Route path="/item" component={Item} />
-                <Route path="/test" component={Test} />
-              </div>
-            </Content>
-            <Footer
-              style={{
-                textAlign: "center"
-              }}
-            >
-              kuboot ©2018 Created by Ant UED
-            </Footer>
-          </Layout>
-        </Layout>
-        </Route>
+          <Route path="/login" component={Login} />
+          <Route path="/boot" component={Boot} />
         </div>
       </Router>
     );

@@ -16,7 +16,6 @@ class MiniProgram extends Component{
     componentWillMount() {
         store.load()
         store.updateSelectKey('1');
-        console.log(store.selectKey);
     }
     submit = e => {
         store.putChange(store.components)

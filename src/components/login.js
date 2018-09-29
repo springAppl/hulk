@@ -9,7 +9,7 @@ background-color: red
 export default class Login extends React.Component {
     render() {
         return (<Container>
-            
+            登陆页面，正在吐血开发中
         </Container>);
     }
 }
