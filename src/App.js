@@ -8,6 +8,13 @@ import Boot from './components/boot';
 
 
 class App extends React.Component {
+
+  componentWillMount() {
+    if(window.location.pathname === '/') {
+      window.location = '/boot';
+    }
+  }
+
   render() {
     return (
       <Router>

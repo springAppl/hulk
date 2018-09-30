@@ -8,13 +8,31 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import { Layout, Menu, Icon } from "antd";
+import { Layout, Menu, Icon, Avatar } from "antd";
 import './boot.css';
 import { observer } from "mobx-react";
+import { get } from './tools/fetch';
 const { Header, Content, Footer, Sider } = Layout;
 
 @observer
 export default class Boot extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            userInfo: null
+        }
+    }
+
+
+    componentWillMount() {
+        get('/api/user', data => {this.setState({
+            userInfo: data 
+        });
+    });
+    }
+
+
     render() {
         return (
             <Layout >
@@ -60,7 +78,11 @@ export default class Boot extends React.Component {
                     background: "#fff",
                     padding: 0
                     }}
-                />
+                >
+                    <div style={{float: 'right', marginRight: 30}}>
+                        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{localStorage.name}</Avatar>
+                    </div>
+                </Header>
                 <Content
                     style={{
                     margin: "24px 16px 0"
