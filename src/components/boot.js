@@ -80,7 +80,7 @@ export default class Boot extends React.Component {
                     }}
                 >
                     <div style={{float: 'right', marginRight: 30}}>
-                        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{localStorage.name}</Avatar>
+                        <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{this.state.userInfo != null ? this.state.userInfo.name : '?'}</Avatar>
                     </div>
                 </Header>
                 <Content
