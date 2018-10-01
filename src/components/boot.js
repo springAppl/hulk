@@ -8,10 +8,10 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import { Layout, Menu, Icon, Avatar } from "antd";
+import { Layout, Menu, Icon, Avatar, Button, message } from "antd";
 import './boot.css';
 import { observer } from "mobx-react";
-import { get } from './tools/fetch';
+import { get, post } from './tools/fetch';
 const { Header, Content, Footer, Sider } = Layout;
 
 @observer
@@ -32,6 +32,12 @@ export default class Boot extends React.Component {
     });
     }
 
+
+    logout = () => {
+        console.log('logout ');
+        post('/api/logout');
+    }
+    
 
     render() {
         return (
@@ -80,6 +86,7 @@ export default class Boot extends React.Component {
                     }}
                 >
                     <div style={{float: 'right', marginRight: 30}}>
+                        <Button type="primary" onClick={this.logout}>登出</Button>
                         <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>{this.state.userInfo != null ? this.state.userInfo.name : '?'}</Avatar>
                     </div>
                 </Header>

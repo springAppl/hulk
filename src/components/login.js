@@ -13,13 +13,16 @@ class LoginForm extends React.Component {
     submit = e  => {
         e.preventDefault();
         const subData = this.props.form.getFieldsValue();
-        post('/api/login?account=' + subData.account + "&password=" + subData.password, {}, data => {
+        post('/api/login?account=' + subData.account + "&password=" + subData.password, {
+            'account': subData.account,
+            'password': subData.password
+        }, data => {
             localStorage.setItem('name', data.name);
             message.success('登录成功');
             window.location = '/boot';
         });
     }
-    
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (<Container>
