@@ -12,7 +12,15 @@ import { Layout, Menu, Icon, Avatar, Button, message } from "antd";
 import './boot.css';
 import { observer } from "mobx-react";
 import { get, post } from './tools/fetch';
+import ShopDetail from './miniprogram/shop_detail';
+
+
+
 const { Header, Content, Footer, Sider } = Layout;
+const MenuItemGroup = Menu.ItemGroup;
+const SubMenu = Menu.SubMenu;
+
+
 
 @observer
 export default class Boot extends React.Component {
@@ -56,11 +64,20 @@ export default class Boot extends React.Component {
                     mode="inline"
                     selectedKeys={[store.selectKey]}
                 >
-                    <Menu.Item key="1">
-                        <Icon type="user" />
-                        <span className="nav-text">小程序</span>
-                        <Link to={`${this.props.match.path}/miniprogram`} />
-                    </Menu.Item>
+                    <SubMenu key="sub1" title={<span><Icon type="mail" /><span>小程序</span></span>}>
+                        <Menu.Item key="1">
+                            <Icon type="user" />
+                            <span className="nav-text">首页</span>
+                            <Link to={`${this.props.match.path}/miniprogram`} />
+                        </Menu.Item>
+
+                        <Menu.Item key="11">
+                            <Icon type="user" />
+                            <span className="nav-text">店铺详情页</span>
+                            <Link to={`${this.props.match.path}/shopDetail`} />
+                        </Menu.Item>
+                    </SubMenu>
+                    
                     <Menu.Item key="2">
                         <Icon type="video-camera" />
                         <span className="nav-text">商品</span>
@@ -102,11 +119,12 @@ export default class Boot extends React.Component {
                         minHeight: 850
                     }}
                     >
-                    <Route exact path={`${this.props.match.path}`} component={MiniProgram} />
-                    <Route path={`${this.props.match.path}/miniprogram`}  component={MiniProgram} />
-                    <Route path={`${this.props.match.path}/shop`}  component={Shop} />
-                    <Route path={`${this.props.match.path}/order`} component={Order} />
-                    <Route path={`${this.props.match.path}/item`} component={Item} />
+                        <Route exact path={`${this.props.match.path}`} component={MiniProgram} />
+                        <Route path={`${this.props.match.path}/miniprogram`}  component={MiniProgram} />
+                        <Route path={`${this.props.match.path}/shopDetail`}  component={ShopDetail} />
+                        <Route path={`${this.props.match.path}/shop`}  component={Shop} />
+                        <Route path={`${this.props.match.path}/order`} component={Order} />
+                        <Route path={`${this.props.match.path}/item`} component={Item} />
                     </div>
                 </Content>
                 <Footer
