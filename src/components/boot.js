@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from "./item/item";
-import MiniProgram from "./miniprogram/miniprogram";
+import MiniProgram from "./miniprogram/mini_index";
 import Order from "./order/order";
 import Shop from "./shop/shop";
 import store from '../store/store';
@@ -12,7 +12,7 @@ import { Layout, Menu, Icon, Avatar, Button, message } from "antd";
 import './boot.css';
 import { observer } from "mobx-react";
 import { get, post } from './tools/fetch';
-import ShopDetail from './miniprogram/shop_detail';
+import ShopDetail from './miniprogram/mini_shop_detail';
 
 
 
@@ -42,7 +42,6 @@ export default class Boot extends React.Component {
 
 
     logout = () => {
-        console.log('logout ');
         post('/api/logout');
     }
     
