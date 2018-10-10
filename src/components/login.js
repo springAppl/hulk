@@ -30,7 +30,7 @@ class LoginForm extends React.Component {
   submit = e => {
     e.preventDefault();
     const subData = this.props.form.getFieldsValue();
-    post('/api/login?account=' + subData.account + "&password=" + subData.password, {
+    post('/api/user/login?account=' + subData.account + "&password=" + subData.password, {
       'account': subData.account,
       'password': subData.password
     }, data => {
