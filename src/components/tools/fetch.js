@@ -18,6 +18,7 @@ let get = (url, resolve, headers) => {
         headers: headers
     })
     .then(checkRedirect)
+    .then(check40x)
     .then(parseJSON)
     .then(checkHttpCode)
     .then(resolve)
@@ -36,6 +37,7 @@ let post = (url, data, resolve) => {
         method: 'POST'
     })
     .then(checkRedirect)
+    .then(check40x)
     .then(parseJSON)
     .then(checkHttpCode)
     .then(resolve)
@@ -53,6 +55,7 @@ let put = (url, data, resolve) => {
         method: 'PUT'
     })
     .then(checkRedirect)
+    .then(check40x)
     .then(parseJSON)
     .then(checkHttpCode)
     .then(resolve)
@@ -66,6 +69,7 @@ let postURL = (url, resolve, headers) => {
         method: 'POST'
     })
     .then(checkRedirect)
+    .then(check40x)
     .then(parseJSON)
     .then(checkHttpCode)
     .then(resolve)
@@ -78,6 +82,12 @@ let checkRedirect = (response) => {
         return window.location = response.url;
     } else {
         return response;
+    }
+    return response;
+}
+let check40x = (response) => {
+    if(response.status >= 400 && response.status < 500) {
+        window.location = '/login'
     }
     return response;
 }

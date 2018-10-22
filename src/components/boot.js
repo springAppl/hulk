@@ -42,7 +42,11 @@ export default class Boot extends React.Component {
 
 
     logout = () => {
-        put('/api/user/logout');
+        fetch('/api/user/logout', {
+            credentials: 'same-origin',
+            method: 'PUT'
+        });
+        window.location = '/login';
     }
     
 
