@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './hotitems.css';
 import { Input, Upload, Icon, message } from 'antd';
-import store from '../../../store/store';
 import {observer} from 'mobx-react';
 import close from '../../../image/close.png';
 import trash from '../../../image/trash.png';
@@ -15,25 +14,25 @@ export default class HotItems extends Component{
 
 
       changeName = (e, index, value) => {
-        var components = Array.from(store.components);
+        var components = Array.from(this.props.store.components);
         components[this.props.index].content.items.splice(index, 1, {
             id: index,
             name: e.target.value,
             image: value.image,
             price: value.price
         });
-        store.refreshData(components);
+        this.props.store.refreshData(components);
     }
 
     changePrice = (e, index, value) => {
-        var components = Array.from(store.components);
+        var components = Array.from(this.props.store.components);
         components[this.props.index].content.items.splice(index, 1, {
             id: index,
             price: e.target.value,
             image: value.image,
             name: value.name
         });
-        store.refreshData(components);
+        this.props.store.refreshData(components);
     }
 
 
@@ -72,29 +71,29 @@ export default class HotItems extends Component{
             newItems.push({
                 image: info.file.response
             });
-            var components = Array.from(store.components);
+            var components = Array.from(this.props.store.components);
             var item = components[this.props.index];
             item.content = {
                 items: newItems
             }
             components.splice(this.props.index, 1, item);
-            store.refreshData(components);
+            this.props.store.refreshData(components);
 
           }
         }
 
     editMode = () => {
-        store.setEdit(this.props.id);
+        this.props.store.setEdit(this.props.id);
     }
     delete = () => {
-        var components = Array.from(store.components);
+        var components = Array.from(this.props.store.components);
         components.splice(this.props.index, 1);
-        store.refreshData(components);
+        this.props.store.refreshData(components);
     }
     delInnerComponent = index => {
-        var components = Array.from(store.components);
+        var components = Array.from(this.props.store.components);
         components[this.props.index].content.items.splice(index, 1);
-        store.refreshData(components);
+        this.props.store.refreshData(components);
     }
     render(){
 
@@ -105,8 +104,8 @@ export default class HotItems extends Component{
               <div className="ant-upload-text">Upload</div>
             </div>
           );
-          var edit = this.props.id == store.edit;
-          var display = store.edit == this.props.id ? 'flex' : 'none';
+          var edit = this.props.id == this.props.store.edit;
+          var display = this.props.store.edit == this.props.id ? 'flex' : 'none';
         return (
             <div className="componentWrapper">
             <div onClick={this.delete} className="deleteList" style={{display: display}}>
@@ -146,7 +145,7 @@ export default class HotItems extends Component{
                     </div>);
                 }):(<div/>)
             }
-            {this.props.id == store.edit ? (<div className="item" >
+            {this.props.id == this.props.store.edit ? (<div className="item" >
                 <div className='image'>
                 <Upload
                     name="file"

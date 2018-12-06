@@ -1,7 +1,6 @@
 import React from 'react';
 import './category.css';
 import { Input, Upload, Icon, message } from 'antd';
-import store from '../../../store/store';
 import {observer} from 'mobx-react';
 import close from '../../../image/close.png';
 import trash from '../../../image/trash.png';
@@ -12,13 +11,13 @@ export default class Category extends React.Component{
         loading: false,
     };
     changeValue = (e, index, value) => {
-        var components = Array.from(store.components);
+        var components = Array.from(this.props.store.components);
         components[this.props.index].content.categories.splice(index, 1, {
             id: index,
             name: e.target.value,
             image: value.image
         });
-        store.refreshData(components);
+        this.props.store.refreshData(components);
     }
     getBase64 = (img, callback) => {
         const reader = new FileReader();
@@ -57,32 +56,32 @@ export default class Category extends React.Component{
                 id: newCategories.length,
                 image: info.file.response
             });
-            var components = Array.from(store.components);
+            var components = Array.from(this.props.store.components);
             var item = components[this.props.index];
             item.content = {
                 categories: newCategories
             }
             components.splice(this.props.index, 1, item);
-            store.refreshData(components);
+            this.props.store.refreshData(components);
           }
         }
 
     editMode = () => {
-        store.setEdit(this.props.id);
+        this.props.store.setEdit(this.props.id);
     }
     delete = () => {
-        var components = Array.from(store.components);
+        var components = Array.from(this.props.store.components);
         components.splice(this.props.index, 1);
-        store.refreshData(components);
+        this.props.store.refreshData(components);
     }
     delInnerComponent = index => {
-        var components = Array.from(store.components);
+        var components = Array.from(this.props.store.components);
         components[this.props.index].content.categories.splice(index, 1);
-        store.refreshData(components);
+        this.props.store.refreshData(components);
     }
 
     render(){
-        var display = store.edit == this.props.id ? 'block' : 'none';
+        var display = this.props.store.edit == this.props.id ? 'block' : 'none';
         const imageUrl = this.state.imageUrl;
         const uploadButton = (
             <div style={{width:60, height:50, margin:0, padding:0}}>
@@ -99,7 +98,7 @@ export default class Category extends React.Component{
                 <div className='span'>
                     <span>
                         {
-                            this.props.id == store.edit ? (
+                            this.props.id == this.props.store.edit ? (
                                 <Input value={value.name}  onChange={(e) => this.changeValue(e, index, value)} />
                             ):(value.name)
                         }
@@ -120,7 +119,7 @@ export default class Category extends React.Component{
                 <a onClick={this.editMode}>
                         <div className='category'>
                             {cat}
-                            {this.props.id == store.edit ? (<div className="categoryItem">
+                            {this.props.id == this.props.store.edit ? (<div className="categoryItem">
                                 <div >
                                 <Upload
                                     name="file"

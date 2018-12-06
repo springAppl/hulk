@@ -1,41 +1,56 @@
 import {observer} from 'mobx-react';
 import React from 'react';
 import {Button} from 'antd';
-import { observable } from 'mobx';
-import AppState from './appState';
-// const appState = observable({
-//     count : 0
-// })
-// appState.increment = function() {
-//     this.count++;
-// }
-// appState.decrement = function() {
-//     this.count--;
-// }
-const appState = new AppState();
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import styled from 'styled-components';
+const Container = styled.div`
+    margin: 8px;
+    
+`;
+const Title = styled.h3`
+    padding: 8px;
+`;
+const Tasks = styled.div``;
+
+
+
 
 @observer
 export default class Test extends React.Component {
 
-    handleInc = () => {
-        appState.increment();
+    constructor(props){
+        super(props);
+        var tasks = ['task1', 'task2', 'task3', 'task4'];
+        this.state = {
+            columns: [
+                {
+                    id: 'todo',
+                    title: '任务',
+                    tasks: tasks
+                },
+                {
+                    id: 'finished',
+                    title: '已完成',
+                    tasks: []
+                }
+            ]
+        };
     }
-
-    handleDec = () => {
-        appState.decrement();
-    }
-
 
     render() {
-        console.log(appState);
         return (
             <div>
-                Counter: {appState.count}<br/>
-                <Button type='primary' onClick={this.handleInc}> + </Button>
-                <Button type='primary' onClick={this.handleDec}> - </Button>
+                <DragDropContext>
+                    {
+                        this.state.columns.map((value, index) => {
+                            return (<Container>
+                                <Title></Title>
+                                <Tasks></Tasks>
+                            </Container>);
+                        })
+                    }
+                </DragDropContext>
             </div>
         );
     }
-
-
 }

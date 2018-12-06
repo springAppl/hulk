@@ -1,6 +1,6 @@
 import { observable, computed, action, decorate } from "mobx"
 
-class Store {
+export default class Store {
   @observable components = []
   @observable edit = 10000
   @observable selectKey = '1'
@@ -13,6 +13,17 @@ class Store {
       return this.components = data
     });
   }
+
+
+
+  loadShopDetail(){
+    fetch('/api/shop-detail/detail')
+    .then(response =>  response.json())
+    .then(data => {
+      return this.components = data
+    });
+  }
+
   @action
    template(){
     fetch('/api/index/use/default', {method: 'PUT'})
@@ -28,17 +39,26 @@ class Store {
     this.components = data
   }
   @action
-  putChange(data){
+  changeIndex(data){
     fetch('/api/index', {
         body: JSON.stringify(data),
         method: 'PUT'
     })
   }
+
+  changeShopDetail(data) {
+    fetch('/api/shop-detail', {
+      body: JSON.stringify(data),
+      method: 'PUT'
+    })
+  }
+
+
   @action
   setEdit(data){
     this.edit = data
   }
-  get getEdit() {
+  @computed get getEdit() {
     return this.edit;
   }
 
@@ -48,12 +68,12 @@ class Store {
   }
 }
 
-decorate(Store, {
-  load: action,
-  refreshData: action,
-  putChange: action,
-  setEdit: action,
-  getEdit: computed
-})
+// decorate(Store, {
+//   load: action,
+//   refreshData: action,
+//   putChange: action,
+//   setEdit: action,
+//   getEdit: computed
+// })
 
-export default new Store()
+// export default new Store()

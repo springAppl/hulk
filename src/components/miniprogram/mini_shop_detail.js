@@ -1,20 +1,7 @@
 import React, {Component} from 'react';
-import store from './../../store/store'
+import BasicEditor from './basic_editor';
 export default class ShopDetail extends Component{
-
-    componentWillMount() {
-        store.load()
-        store.updateSelectKey('11');
+    render(){
+        return <BasicEditor page="shopDetail"/>;
     }
-
-
-    render() {
-        return (<div>
-            店铺详情
-
-
-        </div>);
-    }
-
-
 }

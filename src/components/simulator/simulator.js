@@ -16,7 +16,8 @@ width: 100%;
 margin: 0px;
 background-color: red
 `;
-class Simulator extends React.Component {
+@observer
+export default class Simulator extends React.Component {
 
   render() {
     var divStyle = {
@@ -54,9 +55,9 @@ class Simulator extends React.Component {
                               (provided) => {
                                 var com = null;
                                 if (value.typeId === 'category') {
-                                  com = <Category {...value} index={index}  />
+                                  com = <Category {...value} index={index} store={this.props.store}  />
                                 } else if(value.typeId === 'hotitems'){
-                                  com = <HotItems {...value} index={index} />
+                                  com = <HotItems {...value} index={index} store={this.props.store}/>
                                 }
                               return  (
                                   <Item
@@ -80,5 +81,3 @@ class Simulator extends React.Component {
     );
   }
 }
-Simulator = observer(Simulator)
-export default Simulator
