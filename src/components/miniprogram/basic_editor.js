@@ -91,7 +91,9 @@ export default class BasicEditor extends Component{
                 </DragDropContext>
             </Content>
             <Button type='primary' onClick={this.submit}>提交</Button><br/>
-            <Button type='primary' onClick={this.changeTemplate}>使用基本模板</Button>
+            {
+                this.props.page === 'index' ? <Button type='primary' onClick={this.changeTemplate}>使用基本模板</Button>:""
+            }
         </div>);
     }
 }
